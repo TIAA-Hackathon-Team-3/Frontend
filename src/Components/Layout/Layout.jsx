@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { Suspense } from 'react'
+import { Outlet } from 'react-router'
 
 const Layout = () => {
   return (
