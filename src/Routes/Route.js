@@ -4,6 +4,8 @@ import React from "react";
 const Home = React.lazy(() => import("../Pages/Home/Home"));
 const Register = React.lazy(()=> import("../Pages/Register/SignUp"));
 const Login = React.lazy(()=> import("../Pages/Login/Login"));
+const PostCreation = React.lazy(()=> import("../Pages/PostCreation/PostCreation"));
+
 
 const components = {
     Home: {
@@ -20,6 +22,11 @@ const components = {
 		path: "/login",
 		name: "login",
 		element: React.createElement(Login,{}),
+	},
+	PostCreation:{
+		path: "/PostCreation",
+		name: "PostCreation",
+		element: React.createElement(PostCreation,{}),
 	}
 
 }
@@ -39,6 +46,7 @@ const rolesConfig = {
 const BasicRoutesConfig = [
     components.Home,
 	components.Register,
-	components.Login
+	components.Login,
+	components.PostCreation
 ];
 export { rolesConfig, BasicRoutesConfig };
