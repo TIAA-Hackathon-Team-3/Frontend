@@ -1,5 +1,4 @@
 import { Suspense, useState } from 'react'
-import './App.css'
 import Layout from './Components/Layout/Layout'
 import { Navigate, Route, Routes } from 'react-router'
 import { connect } from 'react-redux';
