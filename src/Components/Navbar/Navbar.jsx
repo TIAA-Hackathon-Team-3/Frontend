@@ -23,8 +23,8 @@ import { Link } from "react-router-dom";
 const Links = [
   { text: "Dashboard", link: "/" },
   { text: "Team", link: "/team" },
-  { text: "Login", link: "/signup" },
-  { text: "SignUp", link: "/login" },
+  { text: "Login", link: "/login" },
+  { text: "SignUp", link: "/signup" },
 ];
 
 const NavLink = ({ children }) => (
