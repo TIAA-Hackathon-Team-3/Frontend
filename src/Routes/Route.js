@@ -2,8 +2,8 @@ import React from "react";
 // import Home from "../Pages/Home/Home";
 
 const Home = React.lazy(() => import("../Pages/Home/Home"));
-const Register = React.lazy(()=> import("../Components/Register/SignUp"));
-const Login = React.lazy(()=> import("../Components/Login/Login"));
+const Register = React.lazy(()=> import("../Pages/Register/SignUp"));
+const Login = React.lazy(()=> import("../Pages/Login/Login"));
 
 const components = {
     Home: {
