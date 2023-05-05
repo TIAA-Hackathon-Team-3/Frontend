@@ -3,6 +3,7 @@ import React from "react";
 
 const Home = React.lazy(() => import("../Pages/Home/Home"));
 const Register = React.lazy(()=> import("../Components/Register/SignUp"));
+const Login = React.lazy(()=> import("../Components/Login/Login"));
 
 const components = {
     Home: {
@@ -14,7 +15,13 @@ const components = {
 		path: "/signup",
 		name: "signup",
 		element: React.createElement(Register,{}),
+	},
+	Login:{
+		path: "/login",
+		name: "login",
+		element: React.createElement(Login,{}),
 	}
+
 }
 
 const rolesConfig = {
@@ -31,6 +38,7 @@ const rolesConfig = {
 };
 const BasicRoutesConfig = [
     components.Home,
-	components.Register
+	components.Register,
+	components.Login
 ];
 export { rolesConfig, BasicRoutesConfig };
