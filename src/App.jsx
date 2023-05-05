@@ -4,6 +4,7 @@ import { Navigate, Route, Routes } from 'react-router'
 import { connect } from 'react-redux';
 import { BasicRoutesConfig, rolesConfig } from './Routes/Route';
 import { loginUser } from './Redux/Actions/AuthActions';
+import "./App.css"
 
 function App(props) {
 
