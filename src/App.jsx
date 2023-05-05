@@ -29,7 +29,7 @@ function App(props) {
 
   let routes;
   if (isAuthenticated || sessionStorage.getItem("isAuthenticated")) {
-    if (userRole === "User" || sessionStorage.getItem("userRole") === "Student") {
+    if (userRole === "User" || sessionStorage.getItem("userRole") === "User") {
       routes = rolesConfig["User"];
     } else if (userRole === "Admin" || sessionStorage.getItem("userRole") === "Admin") {
       routes = rolesConfig["Admin"];
