@@ -9,6 +9,11 @@ import InputAdornment from '@mui/material/InputAdornment'
 import Menu from 'mdi-material-ui/Menu'
 import Magnify from 'mdi-material-ui/Magnify'
 
+// ** Components
+import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler'
+import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
+import NotificationDropdown from 'src/@core/layouts/components/shared-components/NotificationDropdown'
+
 const AppBarContent = props => {
   // ** Props
   const { hidden, settings, saveSettings, toggleNavVisibility } = props
@@ -39,6 +44,21 @@ const AppBarContent = props => {
             )
           }}
         />
+      </Box>
+      <Box className='actions-right' sx={{ display: 'flex', alignItems: 'center' }}>
+        {hiddenSm ? null : (
+          <Box
+            component='a'
+            target='_blank'
+            rel='noreferrer'
+            sx={{ mr: 4, display: 'flex' }}
+            href='https://github.com/themeselection/materio-mui-react-nextjs-admin-template-free'
+          >
+          </Box>
+        )}
+        <ModeToggler settings={settings} saveSettings={saveSettings} />
+        <NotificationDropdown />
+        <UserDropdown />
       </Box>
     </Box>
   )
