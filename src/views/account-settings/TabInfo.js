@@ -15,6 +15,7 @@ import CardContent from '@mui/material/CardContent'
 import FormControl from '@mui/material/FormControl'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import FormControlLabel from '@mui/material/FormControlLabel'
+import axios from 'axios'
 
 // ** Third Party Imports
 import DatePicker from 'react-datepicker'
@@ -27,66 +28,101 @@ const CustomInput = forwardRef((props, ref) => {
 })
 
 const TabInfo = () => {
-  // ** State
-  const [date, setDate] = useState(null)
+  const [data, setData] = useState({
+    title: "",
+    discription: "",
+    image: "",
+    category: ""
+  })
+  const [image, setImage] = useState("");
+  const handleImageChange = async () => {
+    const data = new FormData();
+    data.append("file", data.image);
+    data.append("upload_preset", "ml_default");
+    data.append("cloud_name", "dd9cmhunr");
 
-  return (
-    <CardContent>
-      <form>
-        <Grid container spacing={7}>
+    const res = await axios.post(`https://api.cloudinary.com/v1_1/dd9cmhunr/image/upload`, data);
+    
+    console.log(res);
+  }
+  
+  const handaleChange = (event) => {
+    setData({
+      ...data,
+      [event.target.name]: event.target.value
+    })
+  }
+    const handleOnClick = async () => {
+      await handleImageChange();
+      debugger
+      const createPost = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/createPost/${userId}`,
+        data, {
+        headers: {
+          'x-access-token': `${token}`
+        }
+      })
+      console.log(createPost);
+    }
 
-        <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label='Title'
-              placeholder='Your title Is here'
-            />
+    return (
+      <CardContent>
+        <form>
+          <Grid container spacing={7}>
+
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label='Title'
+                name="title"
+                placeholder='Your title Is here'
+                onChange={handaleChange}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                multiline
+                name="discription"
+                label='Description'
+                minRows={9}
+                onChange={handaleChange}
+                placeholder='Your content Is here'
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <FormControl fullWidth>
+                <InputLabel>Category</InputLabel>
+                <Select label='Category' name='category' >
+                  <MenuItem value='Sports'>Sports</MenuItem>
+                  <MenuItem value='Technology'>Technology</MenuItem>
+                  <MenuItem value='Education'>Education</MenuItem>
+                  <MenuItem value='Health'>Health</MenuItem>
+                  <MenuItem value='Finance'>Finance</MenuItem>
+                  <MenuItem value='Cooking'>Cooking</MenuItem>
+                  <MenuItem value='Travel'>Travel</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <TextField
+                type="file"
+                name='image'
+                onChange={(e) => setImage(e.target.files[0])}
+              />
+            </Grid>
+
+            <Grid item xs={15}>
+              <Button variant='contained' sx={{ marginRight: 3.5 }} onClick={handleOnClick}>
+                Create Post
+              </Button>
+            </Grid>
           </Grid>
+        </form>
+      </CardContent>
+    )
 
-          {/* sx={{ marginTop: 4.8 }} */}
-          <Grid item xs={12}> 
-            <TextField
-              fullWidth
-              multiline
-              label='Description'
-              minRows={9}
-              placeholder='Your content Is here'
-            />
-          </Grid>
-
-          <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
-              <InputLabel>Category</InputLabel>
-              <Select label='Category' defaultValue='Sports'>
-              <MenuItem value='Sports'>Sports</MenuItem>
-                <MenuItem value='Technology'>Technology</MenuItem>
-                <MenuItem value='Education'>Education</MenuItem>
-                <MenuItem value='Health'>Health</MenuItem>
-                <MenuItem value='Finance'>Finance</MenuItem>
-                <MenuItem value='Cooking'>Cooking</MenuItem>
-                <MenuItem value='Travel'>Travel</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={12} sm={6}>
-            <TextField
-              type="file"
-            />
-          </Grid>
-
-          <Grid item xs={15}>
-            <Button variant='contained' sx={{ marginRight: 3.5 }}>
-              Create Post
-            </Button>
-            <Button type='reset' variant='outlined' color='secondary' onClick={() => setDate(null)}>
-              Reset
-            </Button>
-          </Grid>
-        </Grid>
-      </form>
-    </CardContent>
-  )
-}
-
-export default TabInfo
+    }
+    export default TabInfo
