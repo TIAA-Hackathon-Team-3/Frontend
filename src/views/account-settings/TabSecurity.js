@@ -1,38 +1,28 @@
-// ** React Imports
 import { useState } from 'react'
-
-// ** MUI Imports
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
-import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import InputLabel from '@mui/material/InputLabel'
 import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import FormControl from '@mui/material/FormControl'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import InputAdornment from '@mui/material/InputAdornment'
-
-// ** Icons Imports
 import EyeOutline from 'mdi-material-ui/EyeOutline'
-import KeyOutline from 'mdi-material-ui/KeyOutline'
 import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
-import LockOpenOutline from 'mdi-material-ui/LockOpenOutline'
+import axios from 'axios'
 
 const TabSecurity = () => {
-  // ** States
   const [values, setValues] = useState({
     newPassword: '',
     currentPassword: '',
     showNewPassword: false,
-    confirmNewPassword: '',
+    confirmPassword: '',
     showCurrentPassword: false,
-    showConfirmNewPassword: false
+    showConfirmPassword: false
   })
 
-  // Handle Current Password
   const handleCurrentPasswordChange = prop => event => {
     setValues({ ...values, [prop]: event.target.value })
   }
@@ -45,7 +35,6 @@ const TabSecurity = () => {
     event.preventDefault()
   }
 
-  // Handle New Password
   const handleNewPasswordChange = prop => event => {
     setValues({ ...values, [prop]: event.target.value })
   }
@@ -58,17 +47,30 @@ const TabSecurity = () => {
     event.preventDefault()
   }
 
-  // Handle Confirm New Password
-  const handleConfirmNewPasswordChange = prop => event => {
+  const handleConfirmPasswordChange = prop => event => {
     setValues({ ...values, [prop]: event.target.value })
   }
 
-  const handleClickShowConfirmNewPassword = () => {
-    setValues({ ...values, showConfirmNewPassword: !values.showConfirmNewPassword })
+  const handleClickshowConfirmPassword = () => {
+    setValues({ ...values, showConfirmPassword: !values.showConfirmPassword })
   }
 
-  const handleMouseDownConfirmNewPassword = event => {
+  const handleMouseDownConfirmPassword = event => {
     event.preventDefault()
+  }
+const userId="";
+const token="";
+  const handleChangePassword=async()=>{
+    const updatePassword = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/changePassword/${userId}`, {
+      currentPassword: values.currentPassword,
+      newPassword: values.newPassword,
+      confirmPassword: values.confirmPassword
+    }, {
+      headers: {
+          'x-access-token': `${token}`
+      }
+  })
+console.log(updatePassword)
   }
 
   return (
@@ -132,19 +134,19 @@ const TabSecurity = () => {
                   <InputLabel htmlFor='account-settings-confirm-new-password'>Confirm New Password</InputLabel>
                   <OutlinedInput
                     label='Confirm New Password'
-                    value={values.confirmNewPassword}
+                    value={values.confirmPassword}
                     id='account-settings-confirm-new-password'
-                    type={values.showConfirmNewPassword ? 'text' : 'password'}
-                    onChange={handleConfirmNewPasswordChange('confirmNewPassword')}
+                    type={values.showConfirmPassword ? 'text' : 'password'}
+                    onChange={handleConfirmPasswordChange('confirmPassword')}
                     endAdornment={
                       <InputAdornment position='end'>
                         <IconButton
                           edge='end'
                           aria-label='toggle password visibility'
-                          onClick={handleClickShowConfirmNewPassword}
-                          onMouseDown={handleMouseDownConfirmNewPassword}
+                          onClick={handleClickshowConfirmPassword}
+                          onMouseDown={handleMouseDownConfirmPassword}
                         >
-                          {values.showConfirmNewPassword ? <EyeOutline /> : <EyeOffOutline />}
+                          {values.showConfirmPassword ? <EyeOutline /> : <EyeOffOutline />}
                         </IconButton>
                       </InputAdornment>
                     }
@@ -169,16 +171,8 @@ const TabSecurity = () => {
 
       <CardContent>
         <Box sx={{ mt: 11 }}>
-          <Button variant='contained' sx={{ marginRight: 3.5 }}>
+          <Button variant='contained' sx={{ marginRight: 3.5 }} onClick={handleChangePassword}>
             Save Changes
-          </Button>
-          <Button
-            type='reset'
-            variant='outlined'
-            color='secondary'
-            onClick={() => setValues({ ...values, currentPassword: '', newPassword: '', confirmNewPassword: '' })}
-          >
-            Reset
           </Button>
         </Box>
       </CardContent>
