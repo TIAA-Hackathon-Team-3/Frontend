@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
@@ -47,9 +47,8 @@ const ResetButtonStyled = styled(Button)(({ theme }) => ({
 }))
 
 const TabProfile = () => {
-    // ** State
-    const [openAlert, setOpenAlert] = useState(true)
     const [userData, setUserData] = useState({
+        id:"",
         firstName: "",
         lastName: "",
         phoneNumber: "",
@@ -63,6 +62,20 @@ const TabProfile = () => {
         profilePic: "",
         aboutMe: ""
     })
+    useEffect(() => {
+      getUserData()
+    }, [])
+
+    const getUserData = async()=>{
+        const res = await axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/getUserProfile/${userData.id}`, userData, {
+            headers: {
+                'x-access-token': `${token}`
+            }
+        })
+        const userDetails = res.data.data;
+        setUserData({...userData ,userDetails})
+    }
+    
 
     const onChange = file => {
         const reader = new FileReader()
@@ -79,11 +92,10 @@ const TabProfile = () => {
         })
 
     }
-    const userId = "";
     const token = "";
     const handleUpdateProfile = async () => {
 
-        const updateProfile = await axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/userProfileUpdate/${userId}`, userData, {
+        const updateProfile = await axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/userProfileUpdate/${userData.id}`, userData, {
             headers: {
                 'x-access-token': `${token}`
             }
