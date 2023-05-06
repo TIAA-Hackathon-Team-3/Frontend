@@ -1,7 +1,6 @@
 // ** React Imports
 import { useState } from 'react'
 
-// ** MUI Imports
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import TabList from '@mui/lab/TabList'
@@ -10,18 +9,14 @@ import TabContext from '@mui/lab/TabContext'
 import { styled } from '@mui/material/styles'
 import MuiTab from '@mui/material/Tab'
 
-// ** Icons Imports
 import AccountOutline from 'mdi-material-ui/AccountOutline'
 import LockOpenOutline from 'mdi-material-ui/LockOpenOutline'
-import InformationOutline from 'mdi-material-ui/InformationOutline'
 
-// ** Demo Tabs Imports
-import TabInfo from 'src/views/account-settings/TabInfo'
 import TabAccount from 'src/views/account-settings/TabAccount'
 import TabSecurity from 'src/views/account-settings/TabSecurity'
 
-// ** Third Party Styles Imports
 import 'react-datepicker/dist/react-datepicker.css'
+import TabProfile from 'src/views/account-settings/TabProfile'
 
 const Tab = styled(MuiTab)(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
@@ -43,7 +38,7 @@ const TabName = styled('span')(({ theme }) => ({
 
 const AccountSettings = () => {
   // ** State
-  const [value, setValue] = useState('account')
+  const [value, setValue] = useState('profile')
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
@@ -57,7 +52,16 @@ const AccountSettings = () => {
           aria-label='account-settings tabs'
           sx={{ borderBottom: theme => `1px solid ${theme.palette.divider}` }}
         >
-          <Tab
+          <Tab 
+            value='profile'
+            label={
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <LockOpenOutline />
+                <TabName>Profile</TabName>
+              </Box>
+            }
+            />
+          {/* <Tab
             value='account'
             label={
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -65,35 +69,26 @@ const AccountSettings = () => {
                 <TabName>Account</TabName>
               </Box>
             }
-          />
+          /> */}
           <Tab
             value='security'
             label={
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <LockOpenOutline />
-                <TabName>Security</TabName>
-              </Box>
-            }
-          />
-          <Tab
-            value='info'
-            label={
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <InformationOutline />
-                <TabName>Info</TabName>
+                <TabName>Password Change</TabName>
               </Box>
             }
           />
         </TabList>
 
-        <TabPanel sx={{ p: 0 }} value='account'>
-          <TabAccount />
+        <TabPanel sx={{ p: 0 }} value='profile'>
+          <TabProfile />
         </TabPanel>
+        {/* <TabPanel sx={{ p: 0 }} value='account'>
+          <TabAccount />
+        </TabPanel> */}
         <TabPanel sx={{ p: 0 }} value='security'>
           <TabSecurity />
-        </TabPanel>
-        <TabPanel sx={{ p: 0 }} value='info'>
-          <TabInfo />
         </TabPanel>
       </TabContext>
     </Card>
