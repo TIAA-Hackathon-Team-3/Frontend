@@ -48,19 +48,18 @@ function PostCreationPage() {
   };
 
   return (
-    // <Box bg="#1b254b">
-    <Box bg="#1b254b" maxW="md" mx="auto" my={8} borderWidth="1px" borderRadius="lg" overflow="hidden">
-      <Box p={4}>
+    <Box bg="#111c44" maxW="md" mx="auto" my={8} borderWidth="20px" borderRadius="lg" overflow="hidden">
+      <Box p={8}>
         <form onSubmit={handleSubmit}>
-          <FormControl mb={4}>
+          <FormControl mb={8}>
             <FormLabel fontWeight="bold" fontSize="lg" color="white">Post Title</FormLabel>
             <Input type="text" value={title} color="white" onChange={handleTitleChange} />
           </FormControl>
-          <FormControl mb={4}>
+          <FormControl mb={8}>
             <FormLabel fontWeight="bold" fontSize="lg" color="white">Post Content</FormLabel>
             <Textarea value={content} color="white" onChange={handleContentChange} />
           </FormControl>
-          <FormControl mb={4}>
+          <FormControl mb={8}>
             <FormLabel fontWeight="bold" fontSize="lg" color="white">Category</FormLabel>
             <Select color="Blue" value={category} onChange={handleCategoryChange}>
               <option value="technology">Technology</option>
@@ -71,7 +70,7 @@ function PostCreationPage() {
               <option value="sports">Sports</option>
             </Select>
           </FormControl>
-          <FormControl mb={4}>
+          <FormControl mb={8}>
             <FormLabel fontWeight="bold" fontSize="lg" color="white">Tags</FormLabel>
             <Input color="white" type="text" placeholder="Add tags" onKeyDown={handleTagAdd} />
             <Flex mt={2} flexWrap="wrap">
@@ -89,7 +88,6 @@ function PostCreationPage() {
         </form>
       </Box>
     </Box>
-    // </Box>
   );
 }
 

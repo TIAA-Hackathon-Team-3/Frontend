@@ -1,4 +1,5 @@
 import React from "react";
+import PostCreation from "../PostCreation/PostCreation";
 import CreatePost from "../Post/createPost/CreatePost";
 import MiddlePage from '../../Components/MiddlePage/MiddlePage';
 
@@ -9,6 +10,7 @@ const Home = () => {
     <>
       <div className={classes["post-dashboard"]}>
         <div className={classes["post-create"]}>
+          <PostCreation />
           <CreatePost />
           <MiddlePage/>
         </div>
