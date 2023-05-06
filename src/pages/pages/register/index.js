@@ -21,10 +21,12 @@ import MuiCard from '@mui/material/Card'
 import InputAdornment from '@mui/material/InputAdornment'
 import MuiFormControlLabel from '@mui/material/FormControlLabel'
 
+
+import { Toaster, toast } from "react-hot-toast";
+import axios from 'axios';
+
 // ** Icons Imports
 import Google from 'mdi-material-ui/Google'
-import Github from 'mdi-material-ui/Github'
-import Twitter from 'mdi-material-ui/Twitter'
 import Facebook from 'mdi-material-ui/Facebook'
 import EyeOutline from 'mdi-material-ui/EyeOutline'
 import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
@@ -61,15 +63,100 @@ const FormControlLabel = styled(MuiFormControlLabel)(({ theme }) => ({
 const RegisterPage = () => {
   // ** States
   const [values, setValues] = useState({
-    password: '',
     showPassword: false
   })
+
+  
+
+  const [data, setdata] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+
+  const { firstName, lastName, email, password } = data;
 
   // ** Hook
   const theme = useTheme()
 
-  const handleChange = prop => event => {
-    setValues({ ...values, [prop]: event.target.value })
+  const validateForm = () => {
+    let formIsValid = true;
+    const newErrors = {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+    };
+
+    if (!firstName) {
+      newErrors.firstName = "First Name is required";
+      toast.error(newErrors.firstName)
+      formIsValid = false;
+    }
+
+    if (!lastName) {
+      newErrors.lastName = "Last Name is required";
+      toast.error(newErrors.lastName)
+      formIsValid = false;
+    }
+
+    if (!email) {
+      newErrors.email = "Email is required";
+      toast.error(newErrors.email);
+      formIsValid = false;
+      
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = "Email is invalid";
+      toast.error(newErrors.email)
+      formIsValid = false;
+    }
+
+    if (!password) {
+      newErrors.password = "Password is required";
+      toast.error(newErrors.password)
+      formIsValid = false;
+    } else if (password.length < 6) {
+      newErrors.password = "Password should be at least 6 characters long";
+      toast.error(newErrors.password)
+      formIsValid = false;
+    }
+
+    setErrors(newErrors);
+    return formIsValid;
+  };
+
+  const dataChange = (event) => {
+    const newData = { ...data, [event.target.name]: event.target.value };
+    setdata(newData);
+  }
+
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    const formIsValid = validateForm();
+    if (!formIsValid) {
+      return;
+    }
+    try {
+      const result = await axios.post(
+        "https://backend-coral-nine.vercel.app/api/v1/register",
+        data
+      )
+      console.log(result)
+      if(result.data.success)
+      {
+        toast.success(result.data.message,{duration:5000})
+      }
+    } catch (error) {
+      console.log(error.response)
+      toast.error(error.response?.data?.message ?? "An error occurred",{duration:5000})
+    }
   }
 
   const handleClickShowPassword = () => {
@@ -158,21 +245,48 @@ const RegisterPage = () => {
             </Typography>
           </Box>
           <Box sx={{ mb: 6 }}>
-            <Typography variant='h5' sx={{ fontWeight: 600, marginBottom: 1.5 }}>
+            <Typography variant='h5' sx={{ fontWeight: 600, marginBottom: 1.5, textAlign:'center' }}>
               Adventure starts here 🚀
             </Typography>
             <Typography variant='body2'>A place to share knowledge and better understand the world!</Typography>
           </Box>
           <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()}>
-            <TextField autoFocus fullWidth id='username' label='Username' sx={{ marginBottom: 4 }} />
-            <TextField fullWidth type='email' label='Email' sx={{ marginBottom: 4 }} />
+            <TextField autoFocus fullWidth 
+            id='firstName' 
+            name='firstName'
+            label='First Name' 
+            sx={{ marginBottom: 4 }} 
+            value={data.firstName}
+            onChange={dataChange}
+            required
+            />
+            <TextField autoFocus fullWidth 
+            id='lastName' 
+            name='lastName'
+            label='Last Name' 
+            sx={{ marginBottom: 4 }} 
+            value={data.lastName}
+            onChange={dataChange}
+            required
+            />
+            <TextField fullWidth 
+            type='email' 
+            name='email'
+            label='Email' 
+            sx={{ marginBottom: 4 }} 
+            value={data.email}
+            onChange={dataChange}
+            required
+            />
             <FormControl fullWidth>
               <InputLabel htmlFor='auth-register-password'>Password</InputLabel>
               <OutlinedInput
-                label='Password'
-                value={values.password}
+                label='password'
+                name='password'
+                value={data.password}
                 id='auth-register-password'
-                onChange={handleChange('password')}
+                onChange={dataChange}
+                required
                 type={values.showPassword ? 'text' : 'password'}
                 endAdornment={
                   <InputAdornment position='end'>
@@ -199,7 +313,12 @@ const RegisterPage = () => {
                 </Fragment>
               }
             />
-            <Button fullWidth size='large' type='submit' variant='contained' sx={{ marginBottom: 7 }}>
+            <Button fullWidth size='large' 
+            type='submit' 
+            variant='contained' 
+            sx={{ marginBottom: 7 }}
+            onClick={handleSubmit}
+            >
               Sign up
             </Button>
             <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -221,18 +340,6 @@ const RegisterPage = () => {
               </Link>
               <Link href='/' passHref>
                 <IconButton component='a' onClick={e => e.preventDefault()}>
-                  <Twitter sx={{ color: '#1da1f2' }} />
-                </IconButton>
-              </Link>
-              <Link href='/' passHref>
-                <IconButton component='a' onClick={e => e.preventDefault()}>
-                  <Github
-                    sx={{ color: theme => (theme.palette.mode === 'light' ? '#272727' : theme.palette.grey[300]) }}
-                  />
-                </IconButton>
-              </Link>
-              <Link href='/' passHref>
-                <IconButton component='a' onClick={e => e.preventDefault()}>
                   <Google sx={{ color: '#db4437' }} />
                 </IconButton>
               </Link>
@@ -241,6 +348,10 @@ const RegisterPage = () => {
         </CardContent>
       </Card>
       <FooterIllustrationsV1 />
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+      />
     </Box>
   )
 }
