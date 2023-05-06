@@ -1,6 +1,7 @@
 // ** Next Imports
 import Head from 'next/head'
 import { Router } from 'next/router'
+import { Provider } from 'react-redux';
 
 // ** Loader Import
 import NProgress from 'nprogress'
@@ -24,8 +25,10 @@ import { createEmotionCache } from 'src/@core/utils/create-emotion-cache'
 // ** React Perfect Scrollbar Style
 import 'react-perfect-scrollbar/dist/css/styles.css'
 
+
 // ** Global css styles
 import '../../styles/globals.css'
+import store from 'src/Redux/Store'
 
 const clientSideEmotionCache = createEmotionCache()
 
@@ -50,7 +53,9 @@ const App = props => {
   const getLayout = Component.getLayout ?? (page => <UserLayout>{page}</UserLayout>)
 
   return (
+
     <CacheProvider value={emotionCache}>
+      <Provider store={store} >
       <Head>
         <title>{`${themeConfig.templateName} - Material Design React Admin Template`}</title>
         <meta
@@ -68,6 +73,7 @@ const App = props => {
           }}
         </SettingsConsumer>
       </SettingsProvider>
+      </Provider>
     </CacheProvider>
   )
 }
