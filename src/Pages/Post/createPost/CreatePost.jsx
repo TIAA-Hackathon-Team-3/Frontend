@@ -9,10 +9,6 @@ import moment from 'moment';
 
 let id = localStorage.getItem("id");
 
-
-
-
-
 const initState = {
   user_profilePicture:"",
   postTime:"",
@@ -22,17 +18,12 @@ const initState = {
   img: "",
 };
 
-
-
 export default function CreatePost() {
   const desc = useRef();
   const [image, setimage] = useState("");
   const [formData, setFormData] = useState(initState);
   const [userdata, setuserdata] = useState()
 
-
-
-  
   const toast = useToast();
 
 
