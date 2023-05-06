@@ -74,12 +74,6 @@ const RegisterPage = () => {
     email: "",
     password: "",
   });
-  const [errors, setErrors] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-  });
 
   const { firstName, lastName, email, password } = data;
 
@@ -87,7 +81,7 @@ const RegisterPage = () => {
   const theme = useTheme()
 
   const validateForm = () => {
-    let formIsValid = true;
+    
     const newErrors = {
       firstName: "",
       lastName: "",
@@ -95,6 +89,8 @@ const RegisterPage = () => {
       password: "",
     };
 
+    let formIsValid = true;
+    
     if (!firstName) {
       newErrors.firstName = "First Name is required";
       toast.error(newErrors.firstName)
@@ -128,8 +124,7 @@ const RegisterPage = () => {
       formIsValid = false;
     }
 
-    setErrors(newErrors);
-    return formIsValid;
+    
   };
 
   const dataChange = (event) => {
