@@ -22,6 +22,7 @@ import LogoutVariant from 'mdi-material-ui/LogoutVariant'
 import AccountOutline from 'mdi-material-ui/AccountOutline'
 import MessageOutline from 'mdi-material-ui/MessageOutline'
 import HelpCircleOutline from 'mdi-material-ui/HelpCircleOutline'
+import Link from 'next/dist/client/link'
 
 // ** Styled Components
 const BadgeContentSpan = styled('span')(({ theme }) => ({
@@ -108,8 +109,10 @@ const UserDropdown = () => {
         <Divider sx={{ mt: 0, mb: 1 }} />
         <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
           <Box sx={styles}>
-            <AccountOutline sx={{ marginRight: 2 }} />
-            Profile
+              <AccountOutline sx={{ marginRight: 2 }} />
+            <Link href="/account-settings" >
+              Profile
+            </Link>
           </Box>
         </MenuItem>
         <Divider />
