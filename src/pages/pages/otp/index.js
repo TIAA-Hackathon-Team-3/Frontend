@@ -1,46 +1,26 @@
-// ** React Imports
 import { useRef, useState } from 'react'
-
-// ** Next Imports
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-// ** MUI Components
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import Divider from '@mui/material/Divider'
-import Checkbox from '@mui/material/Checkbox'
 import TextField from '@mui/material/TextField'
-import InputLabel from '@mui/material/InputLabel'
 import Typography from '@mui/material/Typography'
-import IconButton from '@mui/material/IconButton'
 import CardContent from '@mui/material/CardContent'
-import FormControl from '@mui/material/FormControl'
-import OutlinedInput from '@mui/material/OutlinedInput'
 import { styled, useTheme } from '@mui/material/styles'
 import MuiCard from '@mui/material/Card'
-import InputAdornment from '@mui/material/InputAdornment'
 import MuiFormControlLabel from '@mui/material/FormControlLabel'
 
-// ** Icons Imports
-import Google from 'mdi-material-ui/Google'
-import Facebook from 'mdi-material-ui/Facebook'
-import EyeOutline from 'mdi-material-ui/EyeOutline'
-import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
 
-// ** Configs
 import themeConfig from 'src/configs/themeConfig'
 
-// ** Layout Import
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 
-// ** Demo Imports
 import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustration'
 
 import { Toaster, toast } from "react-hot-toast";
 import axios from 'axios'
 
-// ** Styled Components
 const Card = styled(MuiCard)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: { width: '28rem' }
 }))
@@ -64,12 +44,12 @@ const OtpPage = () => {
 
   const [otp, setOTP] = useState(['', '', '', '', '', '']); 
   const refs = useRef([]);
+
   const handleOTPChange = (e, index) => {
     const value = e.target.value;
-    setOTP(prev => {
+    setOTP((prev) => {
       const newOTP = [...prev];
       newOTP[index] = value;
-      return newOTP;
     });
     if (value.length === 1 && index < refs.current.length - 1) {
         refs.current[index + 1].focus();
@@ -179,22 +159,12 @@ const OtpPage = () => {
                 {otp.map((digit, index) => (
                     <TextField
                         key={index}
-                        // type='number'
                         inputProps={{ inputMode: 'numeric', pattern: '[0-9]*', maxLength: 1 }}
                         value={digit}
                         onChange={(e) => handleOTPChange(e, index)}
                         sx={{ marginX: 1, width: 50 }}
                         ref={(el) => (refs.current[index] = el)}
                         required
-                        onKeyUp={(e) => {
-                            if (e.key !== 'Backspace' && e.key !== 'Delete' && e.key !== 'Shift') {
-                              if (refs.current[index + 1]) {
-                                refs.current[index + 1].focus();
-                              }
-                            } else if (e.key === 'Backspace' && refs.current[index - 1]) {
-                              refs.current[index - 1].focus();
-                            }
-                          }}
                     />
                 ))}
             </Box>
