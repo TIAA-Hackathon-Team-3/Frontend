@@ -48,7 +48,7 @@ function PostCreationPage() {
   };
 
   return (
-    <Box bg="#1b254b">
+    // <Box bg="#1b254b">
     <Box bg="#1b254b" maxW="md" mx="auto" my={8} borderWidth="1px" borderRadius="lg" overflow="hidden">
       <Box p={4}>
         <form onSubmit={handleSubmit}>
@@ -89,7 +89,7 @@ function PostCreationPage() {
         </form>
       </Box>
     </Box>
-    </Box>
+    // </Box>
   );
 }
 
