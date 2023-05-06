@@ -52,7 +52,7 @@ const AppBarContent = props => {
             target='_blank'
             rel='noreferrer'
             sx={{ mr: 4, display: 'flex' }}
-            href='https://github.com/themeselection/materio-mui-react-nextjs-admin-template-free'
+            href=''
           >
           </Box>
         )}
