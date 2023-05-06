@@ -1,7 +1,6 @@
 // ** React Imports
 import { useState } from 'react'
 
-// ** MUI Imports
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import TabList from '@mui/lab/TabList'
@@ -10,16 +9,13 @@ import TabContext from '@mui/lab/TabContext'
 import { styled } from '@mui/material/styles'
 import MuiTab from '@mui/material/Tab'
 
-// ** Icons Imports
 import AccountOutline from 'mdi-material-ui/AccountOutline'
 import LockOpenOutline from 'mdi-material-ui/LockOpenOutline'
 import InformationOutline from 'mdi-material-ui/InformationOutline'
 import CreateIcon from 'mdi-material-ui/Pen';
 
-// ** Demo Tabs Imports
 import TabInfo from 'src/views/account-settings/TabInfo'
 
-// ** Third Party Styles Imports
 import 'react-datepicker/dist/react-datepicker.css'
 import { blue, red } from '@mui/material/colors'
 
@@ -56,7 +52,6 @@ const AccountSettings = () => {
           value='Create Post'
           label={
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <CreateIcon />
               <TabName>Create Post</TabName>
             </Box>
           }
