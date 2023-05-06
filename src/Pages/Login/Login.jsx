@@ -1,5 +1,4 @@
 import React from "react";
-// Chakra imports
 import {
   Box,
   Flex,
@@ -36,6 +35,7 @@ function SignIn() {
         mx='auto'
         justifyContent='space-between'
         mb='30px'
+        pos='-webkit-sticky'
         pt={{ md: "0px" }}>
         <Flex
           w='100%'
@@ -209,7 +209,9 @@ function SignIn() {
             h='100%'
             bgSize='cover'
             bg='blue.500'
-            opacity='0.8'></Box>
+            opacity='0.8'>
+              
+            </Box>
         </Box>
       </Flex>
     </Flex>
