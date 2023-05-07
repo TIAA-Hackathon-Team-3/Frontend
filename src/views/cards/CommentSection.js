@@ -131,7 +131,7 @@ const CommentSection = () => {
 
   return (
     <Box sx={{ mt: 3 }}>
-      <Typography variant='h6' sx={{ mb: 2 ,color: 'common.white'}} >
+      <Typography variant='h6' sx={{ mb: 2 ,color: 'inherit'}} >
         Comments
       </Typography>
       {comments.map((comment, index) => (
