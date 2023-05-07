@@ -3,12 +3,9 @@ import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Avatar from '@mui/material/Avatar'
 import Typography from '@mui/material/Typography'
-import IconButton from '@mui/material/IconButton'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
-import LinearProgress from '@mui/material/LinearProgress'
 import Grid from '@mui/material/Grid'
-import CardStatisticsVerticalComponent from 'src/@core/components/card-statistics/card-stats-vertical'
  
 // ** Icons Imports
 const data = [
@@ -52,34 +49,29 @@ const followingPage = () => {
       <CardContent >
         <Grid item xb={5}>
           <Card margin=''>
-            <Box display='flex' alignItems='center' padding='1.5rem' boxShadow={5}>
+            <Box display='flex' alignItems='center' padding='1.5rem' border={1} marginBottom={3} boxShadow={3}>
             <Avatar alt='Mary Vaughn' src='/images/avatars/4.png' sx={{ width: 34, height: 34, marginRight: 2.75 }} />
               <Typography>
               Shreya
               </Typography>
-                
             </Box>
           </Card>
           <Card >
-            <Box display='flex' alignItems='center'padding='1.5rem'>
+            <Box display='flex' alignItems='center'padding='1.5rem' border={1} marginBottom={3} boxShadow={3}>
             <Avatar alt='Mary Vaughn' src='/images/avatars/2.png' sx={{ width: 34, height: 34, marginRight: 2.75 }} />
               <Typography >
               Akash
               </Typography>
-              <Typography >
-              Following
-              </Typography>
-              
             </Box>
           </Card>
-          <Card >
-            <Box  sx={{ boxShadow: '0 3px 5px rgba(0, 0, 0, 0.2)'  }} display='flex' alignItems='center'padding='1.5rem'>
+          <Card>
+            <Box display='flex' alignItems='center'padding='1.5rem' border={1} marginBottom={3} boxShadow={3}>
             <Avatar alt='Mary Vaughn' src='/images/avatars/3.png' sx={{ width: 34, height: 34, marginRight: 2.75 }} />
               <Typography>Makarand</Typography>
             </Box>
           </Card>
           <Card>
-            <Box display='flex' alignItems='center'padding='1.5rem'>
+            <Box display='flex' alignItems='center'padding='1.5rem' border={1} boxShadow={3}>
             <Avatar alt='Mary Vaughn' src='/images/avatars/4.png' sx={{ width: 34, height: 34, marginRight: 2.75 }} />
               <Typography>Harsh</Typography>
             </Box>
