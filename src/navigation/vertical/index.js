@@ -10,6 +10,7 @@ import AccountPlusOutline from 'mdi-material-ui/AccountPlusOutline'
 import AlertCircleOutline from 'mdi-material-ui/AlertCircleOutline'
 import GoogleCirclesExtended from 'mdi-material-ui/GoogleCirclesExtended'
 import edit from 'mdi-material-ui/AccountEdit'
+import {Category, GroupRounded } from '@material-ui/icons'
 
 const navigation = () => {
   return [
@@ -29,22 +30,14 @@ const navigation = () => {
       path: '/create-post'
     },
     {
-      title: 'Login',
-      icon: Login,
-      path: '/pages/login',
-      openInNewTab: false
+      title: 'Spaces',
+      icon: GroupRounded,
+      path: '/spaces/spaces'
     },
     {
-      title: 'Register',
-      icon: AccountPlusOutline,
-      path: '/pages/register',
-      openInNewTab: false
-    },
-    {
-      title: 'Error',
-      icon: AlertCircleOutline,
-      path: '/pages/error',
-      openInNewTab: false
+      title: 'Categories',
+      icon: Category,
+      path: '/category/category'
     },
   ]
 }
