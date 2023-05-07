@@ -3,16 +3,9 @@ import { useState } from 'react'
 
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
-import TabList from '@mui/lab/TabList'
-import TabPanel from '@mui/lab/TabPanel'
 import TabContext from '@mui/lab/TabContext'
 import { styled } from '@mui/material/styles'
 import MuiTab from '@mui/material/Tab'
-
-import AccountOutline from 'mdi-material-ui/AccountOutline'
-import LockOpenOutline from 'mdi-material-ui/LockOpenOutline'
-import InformationOutline from 'mdi-material-ui/InformationOutline'
-import CreateIcon from 'mdi-material-ui/Pen';
 
 import TabInfo from 'src/views/account-settings/TabInfo'
 
@@ -46,19 +39,12 @@ const AccountSettings = () => {
   }
 
   return (
-    <Card>
-      <TabContext value={value}>
-        <Tab
-          value='Create Post'
-          label={
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <TabName>Create Post</TabName>
-            </Box>
-          }
-        />
+    <>
+    <h1>Create Post</h1>
+      <Card>
         <TabInfo />
-      </TabContext>
-    </Card>
+      </Card>
+    </>
   )
 }
 
