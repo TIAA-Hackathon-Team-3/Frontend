@@ -14,6 +14,8 @@ import CardStatisticsVerticalComponent from 'src/@core/components/card-statistic
 import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 
 import Trophy from 'src/views/dashboard/Trophy'
+import FollowingPage from 'src/views/dashboard/FollowingPage'
+
 import CardTwitter from 'src/views/cards/CardTwitter'
 
 const Dashboard = () => {
@@ -24,9 +26,9 @@ const Dashboard = () => {
           <CardTwitter />
         </Grid>
         <Grid item xs={12} md={6} lg={4}>
-          <Grid container spacing={6}>
-            <Grid item xs={12} md={8}>
-              <Trophy/>
+          <Grid >
+            <Grid >
+              <FollowingPage/>
             </Grid>
           </Grid>
         </Grid>
