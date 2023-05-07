@@ -37,8 +37,8 @@ import BlankLayout from 'src/@core/layouts/BlankLayout'
 // ** Demo Imports
 import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustration'
 
-// import { Toaster, toast } from "react-hot-toast";
-// import axios from 'axios'
+import { Toaster, toast } from "react-hot-toast";
+import axios from 'axios'
 
 // ** Styled Components
 const Card = styled(MuiCard)(({ theme }) => ({
