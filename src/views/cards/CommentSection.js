@@ -22,58 +22,91 @@ const Reply = ({ name, avatar, reply }) => {
 }
 
 const Comment = ({ name, avatar, comment }) => {
-  const [replies, setReplies] = useState([])
-  const [newReply, setNewReply] = useState('')
+  const [replies, setReplies] = useState([]);
+  const [newReply, setNewReply] = useState('');
+  const [showReplies, setShowReplies] = useState(false);
 
   const handleReplyChange = (event) => {
-    setNewReply(event.target.value)
-  }
+    setNewReply(event.target.value);
+  };
 
   const handleReplySubmit = () => {
     if (newReply.trim() !== '') {
       const newReplyObj = {
         name: 'Sid',
         avatar: '/images/avatars/1.png',
-        reply: newReply.trim()
+        reply: newReply.trim(),
+      };
+      if (replies.length < 2) {
+        setReplies([...replies, newReplyObj]);
       }
-      setReplies([...replies, newReplyObj])
-      setNewReply('')
+      setNewReply('');
     }
-  }
+  };
+
+  const handleViewAllReplies = () => {
+    setShowReplies(true);
+  };
+
+  const handleHideReplies = () => {
+    setShowReplies(false);
+  };
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 3 }}>
-      <Avatar alt={name} src={avatar} sx={{ width: 34, height: 34, mr: 1.5 }} />
+    <Box sx={{ display: 'flex', alignItems: 'flex-start', mt: 2 }}>
+      <Avatar alt={name} src={avatar} sx={{ width: 32, height: 32, mr: 2 }} />
       <Box sx={{ flexGrow: 1 }}>
-        <Typography variant='subtitle2' sx={{ mb: 0.5 }}>
+        <Typography variant="subtitle1" sx={{ mb: 0.5 }}>
           {name}
         </Typography>
-        <Typography variant='body2' sx={{ mb: 1 }}>
+        <Typography variant="body1" sx={{ mb: 1 }}>
           {comment}
         </Typography>
-        {replies.map((reply, index) => (
-          <Reply key={index} name={reply.name} avatar={reply.avatar} reply={reply.reply} />
-        ))}
-        <Box sx={{ display: 'flex', mt: 1 }}>
-          <Avatar alt='Sid' src='/images/avatars/1.png' sx={{ width: 24, height: 24, mr: 1.5 }} />
-          <TextField
-            variant='outlined'
-            fullWidth
-            multiline
-            rows={1}
-            value={newReply}
-            onChange={handleReplyChange}
-            placeholder='Add a reply'
-            sx={{ mr: 1.5 }}
-          />
-          <Button variant='contained' color='primary'  onClick={handleReplySubmit}>
-            Reply
+        {replies.length < 2 && (
+          <>
+            <Typography variant="subtitle2" sx={{ mb: 1 }}>
+              Reply:
+            </Typography>
+            {replies.map((reply, index) => (
+              <Reply key={index} name={reply.name} avatar={reply.avatar} reply={reply.reply} />
+            ))}
+            <TextField
+              label="Reply"
+              variant="outlined"
+              size="small"
+              value={newReply}
+              onChange={handleReplyChange}
+              sx={{ mb: 1 }}
+            />
+            <Button variant="contained" color="primary" onClick={handleReplySubmit}>
+              Reply
+            </Button>
+          </>
+        )}
+        {replies.length >= 2 && !showReplies && (
+          <Button variant="contained" color="primary" onClick={handleViewAllReplies}>
+            View All Replies
           </Button>
-        </Box>
+        )}
+        {replies.length >= 2 && showReplies && (
+          <>
+            <Button variant="contained" color="primary" onClick={handleHideReplies}>
+              Hide Replies
+            </Button>
+            <Typography variant="subtitle2" sx={{ mb: 1 }}>
+              Replies:
+            </Typography>
+            {replies.map((reply, index) => (
+              <Reply key={index} name={reply.name} avatar={reply.avatar} reply={reply.reply} />
+            ))}
+          </>
+        )}
       </Box>
     </Box>
-  )
-}
+  );
+};
+
+
 
 
 const CommentSection = () => {
@@ -98,7 +131,7 @@ const CommentSection = () => {
 
   return (
     <Box sx={{ mt: 3 }}>
-      <Typography variant='h6' sx={{ mb: 2 ,color: 'common.white'}} >
+      <Typography variant='h6' sx={{ mb: 2 ,color: 'inherit'}} >
         Comments
       </Typography>
       {comments.map((comment, index) => (

@@ -39,7 +39,7 @@ const FormControlLabel = styled(MuiFormControlLabel)(({ theme }) => ({
   }
 }))
 
-const OtpPage = () => {
+const ResetOtpPage = () => {
   // ** State
 
 
@@ -95,7 +95,7 @@ const OtpPage = () => {
       if(result.data.success)
       {
         toast.success(result.data.message,{duration:5000})
-        router.push('/pages/login');
+        router.push('/pages/resetpassword');
       }
     } catch (error) {
       toast.error(error.response?.data?.message ?? "An error occurred",{duration:5000})
@@ -184,7 +184,7 @@ const OtpPage = () => {
             <Typography variant='h5' sx={{ fontWeight: 600, marginBottom: 1.5, alignSelf :'center' }}>
               OTP
             </Typography>
-            <Typography variant='body2'>Please enter OTP sent on Email.</Typography>
+            <Typography variant='body2'>Please enter OTP sent on Email to Forgot Password.</Typography>
           </Box>
           <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()}>
             <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: 4 , alignItems:'center' }}>
@@ -210,7 +210,7 @@ const OtpPage = () => {
               Verify
             </Button>
             <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
-              <Typography onClick={handleResendOTP}  variant='body2' sx={{ marginRight: 2, cursor: 'pointer' }}>
+              <Typography onClick={handleResendOTP} variant='body2' sx={{ marginRight: 2, cursor: 'pointer' }}>
                 Resent OTP
               </Typography>
             </Box>
@@ -225,7 +225,6 @@ const OtpPage = () => {
     </Box>
   )
 }
+ResetOtpPage.getLayout = page => <BlankLayout>{page}</BlankLayout>
 
-OtpPage.getLayout = page => <BlankLayout>{page}</BlankLayout>
-
-export default OtpPage
+export default ResetOtpPage

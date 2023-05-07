@@ -61,15 +61,6 @@ const AccountSettings = () => {
               </Box>
             }
             />
-          {/* <Tab
-            value='account'
-            label={
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <AccountOutline />
-                <TabName>Account</TabName>
-              </Box>
-            }
-          /> */}
           <Tab
             value='security'
             label={
@@ -80,13 +71,9 @@ const AccountSettings = () => {
             }
           />
         </TabList>
-
         <TabPanel sx={{ p: 0 }} value='profile'>
           <TabProfile />
         </TabPanel>
-        {/* <TabPanel sx={{ p: 0 }} value='account'>
-          <TabAccount />
-        </TabPanel> */}
         <TabPanel sx={{ p: 0 }} value='security'>
           <TabSecurity />
         </TabPanel>
