@@ -39,6 +39,8 @@ import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustration'
 
 import { Toaster, toast } from "react-hot-toast";
 import axios from 'axios'
+import { loginUser } from 'src/Redux/Actions/AuthActions'
+import { useDispatch } from 'react-redux'
 
 // ** Styled Components
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -72,6 +74,7 @@ const LoginPage = () => {
   // ** Hook
   const theme = useTheme()
   const router = useRouter()
+  const dispatch = useDispatch()
 
   const {email, password } = data;
 
@@ -88,14 +91,21 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       const result = await axios.post(
-        'https://backend-coral-nine.vercel.app/api/v1/login',
+        `${process.env.NEXT_PUBLIC_BASE_URL}/login`,
         data
-      )
-      console.log(result);
-      if(result.data.success)
-      {
+        )
+        if(result.status===200 && result.data.message === "User is not verified")
+        {
+          toast.error(result.data.message,{duration:5000});
+          router.push('/pages/otp')
+        }
+        else if(result?.data?.success)
+        {
+        dispatch(loginUser(result?.data?.data));
+        router.push('/')
         toast.success(result.data.message,{duration:5000});
       }
+
     } catch (error) {
       toast.error(error.response?.data?.message ?? "An error occurred",{duration:5000})
     }
@@ -184,9 +194,9 @@ const LoginPage = () => {
           </Box>
           <Box sx={{ mb: 6 }}>
             <Typography variant='h5' sx={{ fontWeight: 600, marginBottom: 1.5 }}>
-              Welcome to {themeConfig.templateName}! 🎊
+              Welcome to {themeConfig.templateName}
             </Typography>
-            <Typography variant='body2'>Please sign-in to your account and start the adventure</Typography>
+            <Typography variant='body2'>Please Enter Details to Login </Typography>
           </Box>
           <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()}>
             <TextField autoFocus fullWidth 
@@ -225,8 +235,8 @@ const LoginPage = () => {
               sx={{ mb: 4, display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'space-between' }}
             >
               <FormControlLabel control={<Checkbox />} label='Remember Me' />
-              <Link passHref href='/'>
-                <LinkStyled onClick={e => e.preventDefault()}>Forgot Password?</LinkStyled>
+              <Link passHref href='/pages/forgot'>
+                <LinkStyled>Forgot Password?</LinkStyled>
               </Link>
             </Box>
             <Button

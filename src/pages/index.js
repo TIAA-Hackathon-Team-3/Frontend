@@ -1,19 +1,12 @@
 
 import Grid from '@mui/material/Grid'
 
-
-import Poll from 'mdi-material-ui/Poll'
-import CurrencyUsd from 'mdi-material-ui/CurrencyUsd'
-import HelpCircleOutline from 'mdi-material-ui/HelpCircleOutline'
-import BriefcaseVariantOutline from 'mdi-material-ui/BriefcaseVariantOutline'
-
-
-import CardStatisticsVerticalComponent from 'src/@core/components/card-statistics/card-stats-vertical'
-
+import FormLayoutsSeparator from 'src/views/question_form/index'
 
 import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 
-import Trophy from 'src/views/dashboard/Trophy'
+import FollowingPage from 'src/views/dashboard/FollowingPage'
+
 import CardTwitter from 'src/views/cards/CardTwitter'
 
 const Dashboard = () => {
@@ -21,12 +14,13 @@ const Dashboard = () => {
     <ApexChartWrapper>
       <Grid container spacing={6}>
         <Grid item xs={12} md={7}>
+          <FormLayoutsSeparator/>
           <CardTwitter />
         </Grid>
-        <Grid item xs={12} md={6} lg={4}>
-          <Grid container spacing={6}>
-            <Grid item xs={12} md={8}>
-              <Trophy/>
+        <Grid item sx={{ position: 'fixed', right:'6em' }} xs={12} md={6} lg={4}>
+          <Grid >
+            <Grid >
+              <FollowingPage/>
             </Grid>
           </Grid>
         </Grid>

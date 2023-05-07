@@ -1,7 +1,7 @@
 import { useState, Fragment } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { registerUser } from 'src/Redux/Actions/AuthActions'
-
+import { useRouter } from 'next/router'
 import Link from 'next/link'
 
 import Box from '@mui/material/Box'
@@ -63,7 +63,7 @@ const RegisterPage = () => {
   })
 
   const dispatch = useDispatch();
-  
+  const router = useRouter()
 
   const [data, setdata] = useState({
     firstName: "",
@@ -78,7 +78,7 @@ const RegisterPage = () => {
   const theme = useTheme()
 
   const validateForm = () => {
-    
+
     const newErrors = {
       firstName: "",
       lastName: "",
@@ -104,7 +104,7 @@ const RegisterPage = () => {
       newErrors.email = "Email is required";
       toast.error(newErrors.email);
       formIsValid = false;
-      
+
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       newErrors.email = "Email is invalid";
       toast.error(newErrors.email)
@@ -129,7 +129,7 @@ const RegisterPage = () => {
     setdata(newData);
   }
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Handle Submit")
     const formIsValid = validateForm();
@@ -138,16 +138,17 @@ const RegisterPage = () => {
     }
     try {
       const result = await axios.post(
-        "https://backend-coral-nine.vercel.app/api/v1/register",
+        `${process.env.NEXT_PUBLIC_BASE_URL}/register`,
         data
       )
-      if(result.data.success)
-      {
-        toast.success(result.data.message,{duration:5000})
+      if (result.data.success) {
+        dispatch(registerUser(result.data.data));
+        router.push('/pages/otp')
+        toast.success(result.data.message, { duration: 5000 })
       }
     } catch (error) {
       console.log(error)
-      toast.error(error.response?.data?.message ?? "An error occurred",{duration:5000})
+      toast.error(error.response?.data?.message ?? "An error occurred", { duration: 5000 })
     }
   }
 
@@ -237,38 +238,38 @@ const RegisterPage = () => {
             </Typography>
           </Box>
           <Box sx={{ mb: 6 }}>
-            <Typography variant='h5' sx={{ fontWeight: 600, marginBottom: 1.5, textAlign:'center' }}>
+            <Typography variant='h5' sx={{ fontWeight: 600, marginBottom: 1.5, textAlign: 'center' }}>
               Adventure starts here 🚀
             </Typography>
             <Typography variant='body2'>A place to share knowledge and better understand the world!</Typography>
           </Box>
           <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()}>
-            <TextField autoFocus fullWidth 
-            id='firstName' 
-            name='firstName'
-            label='First Name' 
-            sx={{ marginBottom: 4 }} 
-            value={data.firstName}
-            onChange={dataChange}
-            required
+            <TextField autoFocus fullWidth
+              id='firstName'
+              name='firstName'
+              label='First Name'
+              sx={{ marginBottom: 4 }}
+              value={data.firstName}
+              onChange={dataChange}
+              required
             />
-            <TextField autoFocus fullWidth 
-            id='lastName' 
-            name='lastName'
-            label='Last Name' 
-            sx={{ marginBottom: 4 }} 
-            value={data.lastName}
-            onChange={dataChange}
-            required
+            <TextField autoFocus fullWidth
+              id='lastName'
+              name='lastName'
+              label='Last Name'
+              sx={{ marginBottom: 4 }}
+              value={data.lastName}
+              onChange={dataChange}
+              required
             />
-            <TextField fullWidth 
-            type='email' 
-            name='email'
-            label='Email' 
-            sx={{ marginBottom: 4 }} 
-            value={data.email}
-            onChange={dataChange}
-            required
+            <TextField fullWidth
+              type='email'
+              name='email'
+              label='Email'
+              sx={{ marginBottom: 4 }}
+              value={data.email}
+              onChange={dataChange}
+              required
             />
             <FormControl fullWidth>
               <InputLabel htmlFor='auth-register-password'>Password</InputLabel>
@@ -305,11 +306,11 @@ const RegisterPage = () => {
                 </Fragment>
               }
             />
-            <Button fullWidth size='large' 
-            type='submit' 
-            variant='contained' 
-            sx={{ marginBottom: 7 }}
-            onClick={handleSubmit}
+            <Button fullWidth size='large'
+              type='submit'
+              variant='contained'
+              sx={{ marginBottom: 7 }}
+              onClick={handleSubmit}
             >
               Sign up
             </Button>
