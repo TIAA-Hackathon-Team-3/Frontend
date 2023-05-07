@@ -91,11 +91,18 @@ const LoginPage = () => {
         'https://backend-coral-nine.vercel.app/api/v1/login',
         data
       )
-      console.log(result);
-      if(result.data.success)
+      if(result.status===200 && result.data.message === "User is not verified")
+      {
+        toast.error(result.data.message,{duration:50000});
+        router.push('/pages/otp')
+      }
+      if(result?.data?.success)
       {
         toast.success(result.data.message,{duration:5000});
+        console.log("Routing to OTP")
+        router.push('/pages/otp')
       }
+
     } catch (error) {
       toast.error(error.response?.data?.message ?? "An error occurred",{duration:5000})
     }
@@ -184,9 +191,9 @@ const LoginPage = () => {
           </Box>
           <Box sx={{ mb: 6 }}>
             <Typography variant='h5' sx={{ fontWeight: 600, marginBottom: 1.5 }}>
-              Welcome to {themeConfig.templateName}! 🎊
+              Welcome to {themeConfig.templateName}
             </Typography>
-            <Typography variant='body2'>Please sign-in to your account and start the adventure</Typography>
+            <Typography variant='body2'>Please Enter Details to Login </Typography>
           </Box>
           <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()}>
             <TextField autoFocus fullWidth 
@@ -225,8 +232,8 @@ const LoginPage = () => {
               sx={{ mb: 4, display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'space-between' }}
             >
               <FormControlLabel control={<Checkbox />} label='Remember Me' />
-              <Link passHref href='/'>
-                <LinkStyled onClick={e => e.preventDefault()}>Forgot Password?</LinkStyled>
+              <Link passHref href='/pages/forgot'>
+                <LinkStyled>Forgot Password?</LinkStyled>
               </Link>
             </Box>
             <Button
