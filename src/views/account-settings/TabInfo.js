@@ -1,31 +1,17 @@
-// ** React Imports
 import { forwardRef, useEffect, useState } from 'react'
-
-// ** MUI Imports
 import Grid from '@mui/material/Grid'
-import Radio from '@mui/material/Radio'
 import Select from '@mui/material/Select'
 import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
 import TextField from '@mui/material/TextField'
-import FormLabel from '@mui/material/FormLabel'
 import InputLabel from '@mui/material/InputLabel'
-import RadioGroup from '@mui/material/RadioGroup'
 import CardContent from '@mui/material/CardContent'
 import FormControl from '@mui/material/FormControl'
-import OutlinedInput from '@mui/material/OutlinedInput'
-import FormControlLabel from '@mui/material/FormControlLabel'
 import axios from 'axios'
 
 
 import { Toaster, toast } from "react-hot-toast";
-// ** Third Party Imports
-import DatePicker from 'react-datepicker'
-
-// ** Styled Components
-import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
 import { useSelector } from 'react-redux'
-// import cloudinary from 'src/utils/cloudinary'
 
 const CustomInput = forwardRef((props, ref) => {
   return <TextField inputRef={ref} label='Birth Date' fullWidth {...props} />
@@ -38,9 +24,9 @@ const TabInfo = () => {
     image: "",
     category: ""
   })
-  const {loginAuth} = useSelector(state=> state.auth);
- 
-  
+  const { loginAuth } = useSelector(state => state.auth);
+
+
   const handleImageChange = async (event) => {
 
     const data1 = new FormData();
@@ -48,7 +34,7 @@ const TabInfo = () => {
     data1.append("upload_preset", "wqhyebxb");
 
     const res = await axios.post(`https://api.cloudinary.com/v1_1/dr06eyczk/image/upload`, data1);
-    setData({...data , image: res.data.url});
+    setData({ ...data, image: res.data.url });
   }
 
   const handaleChange = (event) => {
@@ -60,18 +46,18 @@ const TabInfo = () => {
   const handleOnClick = async () => {
     try {
       const createPost = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/createPost/${loginAuth.id}`,
-      data, {
-      headers: {
-        'x-access-token': `${loginAuth.token}`
+        data, {
+        headers: {
+          'x-access-token': `${loginAuth.token}`
+        }
+      })
+      if (createPost.data.success) {
+        toast.success(createPost.data.message, { duration: 5000 });
       }
-    })
-    if(createPost.data.success){
-      toast.success(createPost.data.message , {duration:5000});
-    }
     } catch (error) {
-      toast.error(error.response.message , {duration:5000});
+      toast.error(error.response.message, { duration: 5000 });
     }
-   
+
 
 
   }
