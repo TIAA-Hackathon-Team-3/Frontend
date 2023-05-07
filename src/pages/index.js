@@ -2,6 +2,7 @@
 import Grid from '@mui/material/Grid'
 
 import FormLayoutsSeparator from 'src/views/question_form/index'
+import Answer from 'src/views/answer/index'
 
 import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 
@@ -15,9 +16,10 @@ const Dashboard = () => {
       <Grid container spacing={6}>
         <Grid item xs={12} md={7}>
           <FormLayoutsSeparator/>
+          <Answer/>
           <CardTwitter />
         </Grid>
-        <Grid item sx={{ position: 'fixed', right:'6em' }} xs={12} md={6} lg={4}>
+        <Grid item sx={{right:'2em'}}>
           <Grid >
             <Grid >
               <FollowingPage/>
