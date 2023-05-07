@@ -54,7 +54,7 @@ const FormControlLabel = styled(MuiFormControlLabel)(({ theme }) => ({
   }
 }))
 
-const resetPage = () => {
+const ResetPage = () => {
  
 
   const [values, setValues] = useState({
@@ -84,6 +84,7 @@ const resetPage = () => {
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword })
   }
+
   const handleClickShowPassword1 = () => {
     setValues1({ ...values1, showPassword1: !values1.showPassword1 })
   }
@@ -92,6 +93,7 @@ const resetPage = () => {
   const handleMouseDownPassword = event => {
     event.preventDefault()
   }
+  
   const validateForm = () => {
     
     const newErrors = {
@@ -306,6 +308,6 @@ const resetPage = () => {
     </Box>
   )
 }
-resetPage.getLayout = page => <BlankLayout>{page}</BlankLayout>
+ResetPage.getLayout = page => <BlankLayout>{page}</BlankLayout>
 
-export default resetPage
+export default ResetPage
