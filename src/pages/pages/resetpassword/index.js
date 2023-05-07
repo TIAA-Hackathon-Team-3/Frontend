@@ -54,7 +54,7 @@ const FormControlLabel = styled(MuiFormControlLabel)(({ theme }) => ({
   }
 }))
 
-const resetPage = () => {
+const ResetPage = () => {
  
 
   const [values, setValues] = useState({
@@ -306,6 +306,6 @@ const resetPage = () => {
     </Box>
   )
 }
-resetPage.getLayout = page => <BlankLayout>{page}</BlankLayout>
+ResetPage.getLayout = page => <BlankLayout>{page}</BlankLayout>
 
-export default resetPage
+export default ResetPage
