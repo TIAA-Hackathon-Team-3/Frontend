@@ -8,7 +8,7 @@ import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
-import { CompassCalibration, Group, GroupAddRounded } from '@material-ui/icons'
+import {GroupAddRounded } from '@material-ui/icons'
 
 const answer = () => {
   return (
