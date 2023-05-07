@@ -1,15 +1,9 @@
-// ** React Imports
-import { forwardRef, useState } from 'react'
-
 // ** MUI Imports
 import Card from '@mui/material/Card'
 import Grid from '@mui/material/Grid'
-import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
-import {GroupAddRounded } from '@material-ui/icons'
-import { PenPlus } from 'mdi-material-ui'
 import Demo from 'src/Pages/Demo/Demo'
 
 const Answer = () => {
