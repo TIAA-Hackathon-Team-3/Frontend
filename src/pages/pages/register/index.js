@@ -1,10 +1,9 @@
-// ** React Imports
 import { useState, Fragment } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+import { registerUser } from 'src/Redux/Actions/AuthActions'
 
-// ** Next Imports
 import Link from 'next/link'
 
-// ** MUI Components
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
@@ -25,22 +24,19 @@ import MuiFormControlLabel from '@mui/material/FormControlLabel'
 import { Toaster, toast } from "react-hot-toast";
 import axios from 'axios';
 
-// ** Icons Imports
+
 import Google from 'mdi-material-ui/Google'
 import Facebook from 'mdi-material-ui/Facebook'
 import EyeOutline from 'mdi-material-ui/EyeOutline'
 import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
 
-// ** Configs
+
 import themeConfig from 'src/configs/themeConfig'
 
-// ** Layout Import
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 
-// ** Demo Imports
 import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustration'
 
-// ** Styled Components
 const Card = styled(MuiCard)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: { width: '28rem' }
 }))
@@ -66,6 +62,7 @@ const RegisterPage = () => {
     showPassword: false
   })
 
+  const dispatch = useDispatch();
   
 
   const [data, setdata] = useState({
@@ -90,7 +87,7 @@ const RegisterPage = () => {
     };
 
     let formIsValid = true;
-    
+
     if (!firstName) {
       newErrors.firstName = "First Name is required";
       toast.error(newErrors.firstName)
@@ -124,7 +121,7 @@ const RegisterPage = () => {
       formIsValid = false;
     }
 
-    
+    return formIsValid;
   };
 
   const dataChange = (event) => {
@@ -134,6 +131,7 @@ const RegisterPage = () => {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+    console.log("Handle Submit")
     const formIsValid = validateForm();
     if (!formIsValid) {
       return;
@@ -143,13 +141,12 @@ const RegisterPage = () => {
         "https://backend-coral-nine.vercel.app/api/v1/register",
         data
       )
-      console.log(result)
       if(result.data.success)
       {
         toast.success(result.data.message,{duration:5000})
       }
     } catch (error) {
-      console.log(error.response)
+      console.log(error)
       toast.error(error.response?.data?.message ?? "An error occurred",{duration:5000})
     }
   }
