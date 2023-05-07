@@ -39,6 +39,8 @@ import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustration'
 
 import { Toaster, toast } from "react-hot-toast";
 import axios from 'axios'
+import { loginUser } from 'src/Redux/Actions/AuthActions'
+import { useDispatch } from 'react-redux'
 
 // ** Styled Components
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -72,6 +74,7 @@ const LoginPage = () => {
   // ** Hook
   const theme = useTheme()
   const router = useRouter()
+  const dispatch = useDispatch()
 
   const {email, password } = data;
 
@@ -90,17 +93,17 @@ const LoginPage = () => {
       const result = await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_URL}/login`,
         data
-      )
-      if(result.status===200 && result.data.message === "User is not verified")
-      {
-        toast.error(result.data.message,{duration:50000});
-        router.push('/pages/otp')
-      }
-      if(result?.data?.success)
-      {
+        )
+        if(result.status===200 && result.data.message === "User is not verified")
+        {
+          toast.error(result.data.message,{duration:5000});
+          router.push('/pages/otp')
+        }
+        else if(result?.data?.success)
+        {
+        dispatch(loginUser(result?.data?.data));
+        router.push('/')
         toast.success(result.data.message,{duration:5000});
-        console.log("Routing to OTP")
-        router.push('/pages/otp')
       }
 
     } catch (error) {

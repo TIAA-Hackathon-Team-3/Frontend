@@ -25,7 +25,7 @@ const Dashboard = () => {
         <Grid item xs={12} md={7}>
           <CardTwitter />
         </Grid>
-        <Grid item xs={12} md={6} lg={4}>
+        <Grid item sx={{ position: 'fixed', right:'6em' }} xs={12} md={6} lg={4}>
           <Grid >
             <Grid >
               <FollowingPage/>

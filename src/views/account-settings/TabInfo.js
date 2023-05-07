@@ -17,11 +17,14 @@ import OutlinedInput from '@mui/material/OutlinedInput'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import axios from 'axios'
 
+
+import { Toaster, toast } from "react-hot-toast";
 // ** Third Party Imports
 import DatePicker from 'react-datepicker'
 
 // ** Styled Components
 import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
+import { useSelector } from 'react-redux'
 // import cloudinary from 'src/utils/cloudinary'
 
 const CustomInput = forwardRef((props, ref) => {
@@ -35,6 +38,7 @@ const TabInfo = () => {
     image: "",
     category: ""
   })
+  const {loginAuth} = useSelector(state=> state.auth);
  
   
   const handleImageChange = async (event) => {
@@ -54,14 +58,22 @@ const TabInfo = () => {
     })
   }
   const handleOnClick = async () => {
-    await handleImageChange();
-    const createPost = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/createPost/${userId}`,
+    try {
+      const createPost = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/createPost/${loginAuth.id}`,
       data, {
       headers: {
-        'x-access-token': `${token}`
+        'x-access-token': `${loginAuth.token}`
       }
     })
-    console.log(createPost);
+    if(createPost.data.success){
+      toast.success(createPost.data.message , {duration:5000});
+    }
+    } catch (error) {
+      toast.error(error.response.message , {duration:5000});
+    }
+   
+
+
   }
 
   return (
@@ -121,6 +133,10 @@ const TabInfo = () => {
           </Grid>
         </Grid>
       </form>
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+      />
     </CardContent>
   )
 
