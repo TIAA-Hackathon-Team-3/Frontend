@@ -45,7 +45,7 @@ const FormControlLabel = styled(MuiFormControlLabel)(({ theme }) => ({
   }
 }))
 
-const forgotPage = () => {
+const ForgotPage = () => {
  
 
   const [data, setdata] = useState({
@@ -68,7 +68,7 @@ const forgotPage = () => {
     e.preventDefault();
     try {
       const result = await axios.post(
-        'https://backend-coral-nine.vercel.app/api/v1/forgotPasswordUserVerify',
+        `${process.env.NEXT_PUBLIC_BASE_URL}/forgotPasswordUserVerify`,
         data
       )
       if(result.data.success)
@@ -195,6 +195,6 @@ const forgotPage = () => {
     </Box>
   )
 }
-forgotPage.getLayout = page => <BlankLayout>{page}</BlankLayout>
+ForgotPage.getLayout = page => <BlankLayout>{page}</BlankLayout>
 
-export default forgotPage
+export default ForgotPage

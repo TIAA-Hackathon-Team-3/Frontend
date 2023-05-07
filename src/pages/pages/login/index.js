@@ -88,7 +88,7 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       const result = await axios.post(
-        'https://backend-coral-nine.vercel.app/api/v1/login',
+        `${process.env.NEXT_PUBLIC_BASE_URL}/login`,
         data
       )
       if(result.status===200 && result.data.message === "User is not verified")

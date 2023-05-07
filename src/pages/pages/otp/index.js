@@ -65,11 +65,13 @@ const OtpPage = () => {
   const userDetails = useSelector((state)=>state.auth);
   console.log(userDetails.registerAuth.data);
   const Id = userDetails.registerAuth?.data?.id;
+
   const handleResendOTP = async(e) =>{
+
     e.preventDefault();
     try {
       const result = await axios.get(
-        `https://backend-coral-nine.vercel.app/api/v1/reSendOTP/${Id}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/reSendOTP/${Id}`
       )
       if(result.data.success)
       {
@@ -79,6 +81,7 @@ const OtpPage = () => {
       toast.error(error.response?.data?.message ?? "An error occurred",{duration:5000})
     }
   }
+  
   const handleSubmit = async(e) => {
     e.preventDefault();
     const code = otp.join(''); 
@@ -86,7 +89,7 @@ const OtpPage = () => {
   
     try {
       const result = await axios.post(
-        `https://backend-coral-nine.vercel.app/api/v1/verifyUser/${Id}`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/verifyUser/${Id}`,
          {code}
       )
       if(result.data.success)
@@ -222,6 +225,7 @@ const OtpPage = () => {
     </Box>
   )
 }
+
 OtpPage.getLayout = page => <BlankLayout>{page}</BlankLayout>
 
 export default OtpPage
