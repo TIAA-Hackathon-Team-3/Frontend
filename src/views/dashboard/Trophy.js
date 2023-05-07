@@ -42,22 +42,7 @@ const Trophy = () => {
     <SidebarContainer>
       <Card sx={{ position: 'relative' }}>
         <CardContent>
-          <Stack direction="column" spacing={4}>
-            <Typography variant='h6' textAlign='center'>Categories</Typography>
-            <Button size='small' variant='contained'>
-              Technology
-            </Button>
-            <Button size='small' variant='contained'>
-              Food
-            </Button>
-            <Button size='small' variant='contained'>
-              Science
-            </Button>
-            <Button size='small' variant='contained'>
-              Web
-            </Button>
-          </Stack>
-          <TriangleImg alt='triangle background' src={`/images/misc/${imageSrc}`} />
+          
         </CardContent>
       </Card>
       <Card sx={{ position: 'relative' }}>
