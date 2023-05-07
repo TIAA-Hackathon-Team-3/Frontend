@@ -35,16 +35,16 @@ const CardTwitter = () => {
             </Typography>
           </Box>
         </Box>
-        <Box  sx={{ pb: '1rem' }}>
+        <Box sx={{ pb: '1rem' }}>
           <img src='/images/avatars/10.png' alt='Technology' style={{
             display: 'block',
-            margin: 'auto',
-            marginRight: '0.5rem',
-            width: '650px',
+            margin: '0 auto',
+            width: '550px',
             height: '300px',
             boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
             borderRadius: '10px'
           }} />
+
         </Box>
         <Box>
           <Typography variant='h5' sx={{ fontWeight: 'bold', marginBottom: 3, color: 'common.white' }}>
