@@ -1,7 +1,5 @@
-// ** React Imports
 import { forwardRef, useState } from 'react'
 
-// ** MUI Imports
 import Card from '@mui/material/Card'
 import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
@@ -19,10 +17,8 @@ import OutlinedInput from '@mui/material/OutlinedInput'
 import InputAdornment from '@mui/material/InputAdornment'
 import Select from '@mui/material/Select'
 
-// ** Third Party Imports
 import DatePicker from 'react-datepicker'
 
-// ** Icons Imports
 import EyeOutline from 'mdi-material-ui/EyeOutline'
 import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
 
@@ -31,7 +27,6 @@ const CustomInput = forwardRef((props, ref) => {
 })
 
 const FormLayoutsSeparator = () => {
-  // ** States
   const [language, setLanguage] = useState([])
   const [date, setDate] = useState(null)
 
@@ -55,7 +50,6 @@ const FormLayoutsSeparator = () => {
     event.preventDefault()
   }
 
-  // Handle Confirm Password
   const handleConfirmChange = prop => event => {
     setValues({ ...values, [prop]: event.target.value })
   }
@@ -68,7 +62,6 @@ const FormLayoutsSeparator = () => {
     event.preventDefault()
   }
 
-  // Handle Select
   const handleSelectChange = event => {
     setLanguage(event.target.value)
   }
