@@ -33,5 +33,4 @@ const CardFacebook = () => {
     </Card>
   )
 }
-
 export default CardFacebook

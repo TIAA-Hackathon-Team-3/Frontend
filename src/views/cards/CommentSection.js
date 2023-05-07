@@ -142,12 +142,9 @@ const CommentSection = () => {
         <TextField
           variant='outlined'
           fullWidth
-          multiline
-          rows={1}
           value={newComment}
           onChange={handleCommentChange}
           placeholder='Add a comment'
-          sx={{ mr: 1.5 }}
         />
         <Button variant='contained' color='primary'  onClick={handleCommentSubmit}>
           Comment
