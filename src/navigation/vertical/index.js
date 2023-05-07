@@ -41,6 +41,12 @@ const navigation = () => {
       openInNewTab: false
     },
     {
+      title: 'Chat',
+      icon: AccountPlusOutline,
+      path: '/pages/Chat',
+      openInNewTab: false
+    },
+    {
       title: 'Error',
       icon: AlertCircleOutline,
       path: '/pages/error',

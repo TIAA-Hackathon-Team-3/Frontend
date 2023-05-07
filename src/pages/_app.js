@@ -70,6 +70,7 @@ const App = props => {
       </SettingsProvider>
     </CacheProvider>
   )
+  
 }
 
 export default App
