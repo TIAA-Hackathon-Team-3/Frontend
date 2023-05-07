@@ -23,47 +23,7 @@ import DatePicker from 'react-datepicker'
 // ** Styled Components
 import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
 
-const CustomInput = forwardRef((props, ref) => {
-  return <TextField inputRef={ref} label='Birth Date' fullWidth {...props} />
-})
-
 const TabInfo = () => {
-  const [data, setData] = useState({
-    title: "",
-    discription: "",
-    image: "",
-    category: ""
-  })
-  const [image, setImage] = useState("");
-  const handleImageChange = async () => {
-    const data = new FormData();
-    data.append("file", data.image);
-    data.append("upload_preset", "ml_default");
-    data.append("cloud_name", "dd9cmhunr");
-
-    const res = await axios.post(`https://api.cloudinary.com/v1_1/dd9cmhunr/image/upload`, data);
-    
-    console.log(res);
-  }
-  
-  const handaleChange = (event) => {
-    setData({
-      ...data,
-      [event.target.name]: event.target.value
-    })
-  }
-    const handleOnClick = async () => {
-      await handleImageChange();
-      debugger
-      const createPost = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/createPost/${userId}`,
-        data, {
-        headers: {
-          'x-access-token': `${token}`
-        }
-      })
-      console.log(createPost);
-    }
-
     return (
       <CardContent>
         <form>
@@ -75,7 +35,6 @@ const TabInfo = () => {
                 label='Title'
                 name="title"
                 placeholder='Your title Is here'
-                onChange={handaleChange}
               />
             </Grid>
 
@@ -86,7 +45,6 @@ const TabInfo = () => {
                 name="discription"
                 label='Description'
                 minRows={9}
-                onChange={handaleChange}
                 placeholder='Your content Is here'
               />
             </Grid>
@@ -115,7 +73,7 @@ const TabInfo = () => {
             </Grid>
 
             <Grid item xs={15}>
-              <Button variant='contained' sx={{ marginRight: 3.5 }} onClick={handleOnClick}>
+              <Button variant='contained' sx={{ marginRight: 3.5 }}>
                 Create Post
               </Button>
             </Grid>
@@ -123,6 +81,5 @@ const TabInfo = () => {
         </form>
       </CardContent>
     )
-
     }
     export default TabInfo

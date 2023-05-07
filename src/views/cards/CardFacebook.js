@@ -6,9 +6,10 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
 // ** Icons Imports
-import Heart from 'mdi-material-ui/Heart'
 import Facebook from 'mdi-material-ui/Facebook'
-import ShareVariant from 'mdi-material-ui/ShareVariant'
+import { Button } from '@mui/material'
+import { CompassCalibration, Group, GroupAddRounded } from '@material-ui/icons'
+import { Compass } from 'mdi-material-ui'
 
 const CardFacebook = () => {
   return (
@@ -18,34 +19,15 @@ const CardFacebook = () => {
           variant='h6'
           sx={{ display: 'flex', marginBottom: 2.75, alignItems: 'center', color: 'common.white' }}
         >
-          <Facebook sx={{ marginRight: 2.5 }} />
-          Facebook Card
+          <Group sx={{ marginRight: 2.5 }} />&nbsp;
+           Welcome to Spaces!
         </Typography>
         <Typography variant='body2' sx={{ marginBottom: 3, color: 'common.white' }}>
-          You’ve read about the importance of being courageous, rebellious and imaginative. These are all vital
-          ingredients in an effective.
+        Follow Spaces to explore your interests on Quora.
         </Typography>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Box sx={{ mr: 2, display: 'flex', alignItems: 'center' }}>
-            <Avatar alt='Eugene Clarke' src='/images/avatars/1.png' sx={{ width: 34, height: 34, marginRight: 2.75 }} />
-            <Typography variant='body2' sx={{ color: 'common.white' }}>
-              Eugene Clarke
-            </Typography>
-          </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', mr: 3.5 }}>
-              <Heart sx={{ marginRight: 1.25 }} />
-              <Typography variant='body2' sx={{ color: 'common.white' }}>
-                3.2k
-              </Typography>
-            </Box>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <ShareVariant sx={{ marginRight: 1.25 }} />
-              <Typography variant='body2' sx={{ color: 'common.white' }}>
-                49
-              </Typography>
-            </Box>
-          </Box>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center'}}>
+        <Button sx={{ border: 0, color: 'black', margin:2, backgroundColor: 'white',"&:hover": {backgroundColor: "white" }}} variant="contained" startIcon={<GroupAddRounded/>}>Create a space</Button>
+        <Button sx={{ border: 0, color: 'black', margin:2, backgroundColor: 'white',"&:hover": {backgroundColor: "white" }}} variant="contained" startIcon={<Compass/>}>Discover More</Button>
         </Box>
       </CardContent>
     </Card>
