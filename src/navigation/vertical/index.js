@@ -29,6 +29,11 @@ const navigation = () => {
       path: '/create-post'
     },
     {
+      title: 'Spaces',
+      icon: edit,
+      path: '/spaces/spaces'
+    },
+    {
       title: 'Login',
       icon: Login,
       path: '/pages/login',
