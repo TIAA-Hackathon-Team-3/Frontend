@@ -39,19 +39,12 @@ const AccountSettings = () => {
   }
 
   return (
-    <Card>
-      <TabContext value={value}>
-        <Tab
-          value='Create Post'
-          label={
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <TabName>Create Post</TabName>
-            </Box>
-          }
-        />
+    <>
+    <h1>Create Post</h1>
+      <Card>
         <TabInfo />
-      </TabContext>
-    </Card>
+      </Card>
+    </>
   )
 }
 
