@@ -40,10 +40,9 @@ const data = [
 
 const followingPage = () => {
   return (
-    <Card >
+    <Card position='fixed' >
       <CardHeader
-        title='Following'
-        
+        title='Following'        
         titleTypographyProps={{ sx: { lineHeight: '1.6 !important', letterSpacing: '0.15px !important' } }}
       />
       <CardContent >
