@@ -65,7 +65,9 @@ const ResetOtpPage = () => {
   const userDetails = useSelector((state)=>state.auth);
   console.log(userDetails.registerAuth.data);
   const Id = userDetails.registerAuth?.data?.id;
+
   const handleResendOTP = async(e) =>{
+
     e.preventDefault();
     try {
       const result = await axios.get(
@@ -79,6 +81,7 @@ const ResetOtpPage = () => {
       toast.error(error.response?.data?.message ?? "An error occurred",{duration:5000})
     }
   }
+  
   const handleSubmit = async(e) => {
     e.preventDefault();
     const code = otp.join(''); 
