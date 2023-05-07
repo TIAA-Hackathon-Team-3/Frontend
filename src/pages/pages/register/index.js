@@ -1,7 +1,7 @@
 import { useState, Fragment } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { registerUser } from 'src/Redux/Actions/AuthActions'
-
+import { useRouter } from 'next/router'
 import Link from 'next/link'
 
 import Box from '@mui/material/Box'
@@ -63,7 +63,7 @@ const RegisterPage = () => {
   })
 
   const dispatch = useDispatch();
-  
+  const router = useRouter()
 
   const [data, setdata] = useState({
     firstName: "",
@@ -143,6 +143,8 @@ const RegisterPage = () => {
       )
       if(result.data.success)
       {
+        dispatch(registerUser(result.data.data));
+        router.push('/pages/otp')
         toast.success(result.data.message,{duration:5000})
       }
     } catch (error) {

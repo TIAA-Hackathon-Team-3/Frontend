@@ -8,23 +8,18 @@ import { useRouter } from 'next/router'
 // ** MUI Components
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import Divider from '@mui/material/Divider'
-import Checkbox from '@mui/material/Checkbox'
 import TextField from '@mui/material/TextField'
-import InputLabel from '@mui/material/InputLabel'
 import Typography from '@mui/material/Typography'
-import IconButton from '@mui/material/IconButton'
 import CardContent from '@mui/material/CardContent'
-import FormControl from '@mui/material/FormControl'
-import OutlinedInput from '@mui/material/OutlinedInput'
 import { styled, useTheme } from '@mui/material/styles'
 import MuiCard from '@mui/material/Card'
-import InputAdornment from '@mui/material/InputAdornment'
 import MuiFormControlLabel from '@mui/material/FormControlLabel'
+import FormControl from '@mui/material/FormControl'
+import InputLabel from '@mui/material/InputLabel'
+import OutlinedInput from '@mui/material/OutlinedInput'
+import InputAdornment from '@mui/material/InputAdornment'
+import IconButton from '@mui/material/IconButton'
 
-// ** Icons Imports
-import Google from 'mdi-material-ui/Google'
-import Facebook from 'mdi-material-ui/Facebook'
 import EyeOutline from 'mdi-material-ui/EyeOutline'
 import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
 
@@ -39,6 +34,7 @@ import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustration'
 
 import { Toaster, toast } from "react-hot-toast";
 import axios from 'axios'
+import { useSelector } from 'react-redux'
 
 // ** Styled Components
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -58,22 +54,27 @@ const FormControlLabel = styled(MuiFormControlLabel)(({ theme }) => ({
   }
 }))
 
-const LoginPage = () => {
-  // ** State
+const resetPage = () => {
+ 
+
   const [values, setValues] = useState({
     showPassword: false
   })
 
+  const [values1, setValues1] = useState({
+    showPassword1: false
+  })
+
   const [data, setdata] = useState({
-    email: "",
-    password: "",
+    newPassword: "",
+    rePassword: ""
   });
 
   // ** Hook
   const theme = useTheme()
   const router = useRouter()
 
-  const {email, password } = data;
+  const {newPassword,rePassword } = data;
 
   const dataChange = (event) => {
     const newData = { ...data, [event.target.name]: event.target.value };
@@ -83,34 +84,73 @@ const LoginPage = () => {
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword })
   }
-  
+  const handleClickShowPassword1 = () => {
+    setValues1({ ...values1, showPassword1: !values1.showPassword1 })
+  }
+
+
+  const handleMouseDownPassword = event => {
+    event.preventDefault()
+  }
+  const validateForm = () => {
+    
+    const newErrors = {
+      newPassword: "",
+      rePassword: ""
+    };
+
+    let formIsValid = true;
+
+    if (!newPassword) {
+      newErrors.newPassword = "Password is required";
+      toast.error(newErrors.newPassword)
+      formIsValid = false;
+    } else if (newPassword.length < 6) {
+      newErrors.newPassword = "Password should be at least 6 characters long";
+      toast.error(newErrors.newPassword)
+      formIsValid = false;
+    }
+    if(!rePassword){
+      newErrors.rePassword = "Confirm Password is required";
+      toast.error(newErrors.rePassword)
+      formIsValid = false;
+    }
+    if(newPassword!==rePassword){
+      newErrors.rePassword = "Password and Confirm Passsword do not Match";
+      toast.error(newErrors.rePassword)
+      formIsValid = false;
+    }
+
+    return formIsValid;
+  };
+
+  const userDetails = useSelector((state)=>state.auth);
+  const Id = userDetails.registerAuth?.data?.id;
+
   const handleSubmit = async(e) => {
     e.preventDefault();
+   console.log(userDetails);
+    const formIsValid = validateForm();
+    if (!formIsValid) {
+      return;
+    }
     try {
       const result = await axios.post(
-        'https://backend-coral-nine.vercel.app/api/v1/login',
+        `https://backend-coral-nine.vercel.app/api/v1/forgotPassword/${Id}`,
         data
       )
-      if(result.status===200 && result.data.message === "User is not verified")
-      {
-        toast.error(result.data.message,{duration:50000});
-        router.push('/pages/otp')
-      }
-      if(result?.data?.success)
+      console.log(result);
+      if(result.data.success)
       {
         toast.success(result.data.message,{duration:5000});
-        console.log("Routing to OTP")
-        router.push('/pages/otp')
+        router.push('/pages/login')
       }
-
     } catch (error) {
+      console.log(error.response)
       toast.error(error.response?.data?.message ?? "An error occurred",{duration:5000})
     }
   }
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault()
-  }
 
   return (
     <Box className='content-center'>
@@ -191,28 +231,21 @@ const LoginPage = () => {
           </Box>
           <Box sx={{ mb: 6 }}>
             <Typography variant='h5' sx={{ fontWeight: 600, marginBottom: 1.5 }}>
-              Welcome to {themeConfig.templateName}
+               Reset Password
             </Typography>
-            <Typography variant='body2'>Please Enter Details to Login </Typography>
+            <Typography variant='body2'>Enter Password to Reset</Typography>
           </Box>
           <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()}>
-            <TextField autoFocus fullWidth 
-            id='email' 
-            label='Email' 
-            sx={{ marginBottom: 4 }}
-            name='email'
-            value={data.email}
-            onChange={dataChange}
-            required
-            />
             <FormControl fullWidth>
-              <InputLabel htmlFor='auth-login-password'>Password</InputLabel>
+              <InputLabel htmlFor='auth-register-password'>New Password</InputLabel>
               <OutlinedInput
-                label='Password'
-                value={data.password}
-                id='password'
-                name='password'
+                label='New Password'
+                name='newPassword'
+                value={data.newPassword}
+                id='newPassword'
                 onChange={dataChange}
+                sx={{ marginBottom: 4 }}
+                required
                 type={values.showPassword ? 'text' : 'password'}
                 endAdornment={
                   <InputAdornment position='end'>
@@ -222,20 +255,37 @@ const LoginPage = () => {
                       onMouseDown={handleMouseDownPassword}
                       aria-label='toggle password visibility'
                     >
-                      {values.showPassword ? <EyeOutline /> : <EyeOffOutline />}
+                      {values.showPassword ? <EyeOutline fontSize='small' /> : <EyeOffOutline fontSize='small' />}
                     </IconButton>
                   </InputAdornment>
                 }
               />
             </FormControl>
-            <Box
-              sx={{ mb: 4, display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'space-between' }}
-            >
-              <FormControlLabel control={<Checkbox />} label='Remember Me' />
-              <Link passHref href='/pages/forgot'>
-                <LinkStyled>Forgot Password?</LinkStyled>
-              </Link>
-            </Box>
+            <FormControl fullWidth>
+              <InputLabel htmlFor='auth-register-password'>Confirm Password</InputLabel>
+              <OutlinedInput
+                label='Confirm Password'
+                name='rePassword'
+                sx={{ marginBottom: 4 }}
+                value={data.rePassword}
+                id='rePassword'
+                onChange={dataChange}
+                required
+                type={values1.showPassword1 ? 'text' : 'password'}
+                endAdornment={
+                  <InputAdornment position='end'>
+                    <IconButton
+                      edge='end'
+                      onClick={handleClickShowPassword1}
+                      onMouseDown={handleMouseDownPassword}
+                      aria-label='toggle password visibility'
+                    >
+                      {values1.showPassword1 ? <EyeOutline fontSize='small' /> : <EyeOffOutline fontSize='small' />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
             <Button
               fullWidth
               size='large'
@@ -243,31 +293,8 @@ const LoginPage = () => {
               sx={{ marginBottom: 7 }}
               onClick={handleSubmit}
             >
-              Login
+              Reset
             </Button>
-            <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
-              <Typography variant='body2' sx={{ marginRight: 2 }}>
-                New on our platform?
-              </Typography>
-              <Typography variant='body2'>
-                <Link passHref href='/pages/register'>
-                  <LinkStyled>Create an account</LinkStyled>
-                </Link>
-              </Typography>
-            </Box>
-            <Divider sx={{ my: 5 }}>or</Divider>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Link href='/' passHref>
-                <IconButton component='a' onClick={e => e.preventDefault()}>
-                  <Facebook sx={{ color: '#497ce2' }} />
-                </IconButton>
-              </Link>
-              <Link href='/' passHref>
-                <IconButton component='a' onClick={e => e.preventDefault()}>
-                  <Google sx={{ color: '#db4437' }} />
-                </IconButton>
-              </Link>
-            </Box>
           </form>
         </CardContent>
       </Card>
@@ -279,6 +306,6 @@ const LoginPage = () => {
     </Box>
   )
 }
-LoginPage.getLayout = page => <BlankLayout>{page}</BlankLayout>
+resetPage.getLayout = page => <BlankLayout>{page}</BlankLayout>
 
-export default LoginPage
+export default resetPage

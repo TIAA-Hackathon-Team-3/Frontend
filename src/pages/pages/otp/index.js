@@ -20,6 +20,7 @@ import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustration'
 
 import { Toaster, toast } from "react-hot-toast";
 import axios from 'axios'
+import { useSelector } from 'react-redux'
 
 const Card = styled(MuiCard)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: { width: '28rem' }
@@ -50,6 +51,7 @@ const OtpPage = () => {
     setOTP((prev) => {
       const newOTP = [...prev];
       newOTP[index] = value;
+      return newOTP;
     });
     if (value.length === 1 && index < refs.current.length - 1) {
         refs.current[index + 1].focus();
@@ -60,15 +62,42 @@ const OtpPage = () => {
   const theme = useTheme()
   const router = useRouter()
 
-
-  
+  const userDetails = useSelector((state)=>state.auth);
+  console.log(userDetails.registerAuth.data);
+  const Id = userDetails.registerAuth?.data?.id;
+  const handleResendOTP = async(e) =>{
+    e.preventDefault();
+    try {
+      const result = await axios.get(
+        `https://backend-coral-nine.vercel.app/api/v1/reSendOTP/${Id}`
+      )
+      if(result.data.success)
+      {
+        toast.success(result.data.message,{duration:5000})
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message ?? "An error occurred",{duration:5000})
+    }
+  }
   const handleSubmit = async(e) => {
     e.preventDefault();
-    const enteredOTP = otp.join(''); 
-    console.log('Entered OTP:', enteredOTP);
-
+    const code = otp.join(''); 
+    console.log('Entered OTP:', code);
+  
+    try {
+      const result = await axios.post(
+        `https://backend-coral-nine.vercel.app/api/v1/verifyUser/${Id}`,
+         {code}
+      )
+      if(result.data.success)
+      {
+        toast.success(result.data.message,{duration:5000})
+        router.push('/pages/login');
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message ?? "An error occurred",{duration:5000})
+    }
   }
-
 
 
   return (
@@ -156,7 +185,7 @@ const OtpPage = () => {
           </Box>
           <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()}>
             <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: 4 , alignItems:'center' }}>
-                {otp.map((digit, index) => (
+                {otp?.map((digit, index) => (
                     <TextField
                         key={index}
                         inputProps={{ inputMode: 'numeric', pattern: '[0-9]*', maxLength: 1 }}
@@ -178,7 +207,7 @@ const OtpPage = () => {
               Verify
             </Button>
             <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
-              <Typography variant='body2' sx={{ marginRight: 2, cursor: 'pointer' }}>
+              <Typography onClick={handleResendOTP}  variant='body2' sx={{ marginRight: 2, cursor: 'pointer' }}>
                 Resent OTP
               </Typography>
             </Box>
