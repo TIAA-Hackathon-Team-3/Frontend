@@ -136,7 +136,7 @@ const resetPage = () => {
     }
     try {
       const result = await axios.post(
-        `https://backend-coral-nine.vercel.app/api/v1/forgotPassword/${Id}`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/forgotPassword/${Id}`,
         data
       )
       console.log(result);

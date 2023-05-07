@@ -69,7 +69,7 @@ const ResetOtpPage = () => {
     e.preventDefault();
     try {
       const result = await axios.get(
-        `https://backend-coral-nine.vercel.app/api/v1/reSendOTP/${Id}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/reSendOTP/${Id}`
       )
       if(result.data.success)
       {
@@ -86,7 +86,7 @@ const ResetOtpPage = () => {
   
     try {
       const result = await axios.post(
-        `https://backend-coral-nine.vercel.app/api/v1/verifyUser/${Id}`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/verifyUser/${Id}`,
          {code}
       )
       if(result.data.success)

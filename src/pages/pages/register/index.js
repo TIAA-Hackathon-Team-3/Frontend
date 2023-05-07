@@ -138,7 +138,7 @@ const RegisterPage = () => {
     }
     try {
       const result = await axios.post(
-        "https://backend-coral-nine.vercel.app/api/v1/register",
+        `${process.env.NEXT_PUBLIC_BASE_URL}/register`,
         data
       )
       if(result.data.success)
