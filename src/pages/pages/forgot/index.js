@@ -68,7 +68,7 @@ const forgotPage = () => {
     e.preventDefault();
     try {
       const result = await axios.post(
-        'https://backend-coral-nine.vercel.app/api/v1/forgotPasswordUserVerify',
+        `${process.env.NEXT_PUBLIC_BASE_URL}/forgotPasswordUserVerify`,
         data
       )
       if(result.data.success)
