@@ -9,10 +9,19 @@ import HelpCircleOutline from 'mdi-material-ui/HelpCircleOutline'
 import { Sports } from '@material-ui/icons';
 import CardInfluencer from 'src/views/cards/CardInfluencer';
 import CardHorizontalRatings from 'src/views/cards/CardHorizontalRatings';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 
 const category = () => {
-    
+    const { loginAuth } = useSelector(state => state.auth);
+  const router = useRouter()
+  useEffect(() => {
+    if(loginAuth.data === undefined){
+      router.push('/pages/login')
+    }
+  }, [])
     return (
         <>
         <h1>Categories</h1>
