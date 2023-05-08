@@ -64,7 +64,7 @@ const TabProfile = () => {
         aboutMe: ""
     })
     const userDetails = useSelector((state)=>state.auth);
-    const token = userDetails.loginAuth.data.token;
+    const token = userDetails.loginAuth?.data?.token;
     useEffect(() => {
       getUserData()
     }, [])

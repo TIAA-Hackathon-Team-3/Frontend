@@ -26,7 +26,9 @@ const TabInfo = () => {
   })
   const { loginAuth } = useSelector(state => state.auth);
 
-
+  const userDetails = useSelector((state)=>state.auth);
+  const token = userDetails.loginAuth?.data?.token;
+  const id = userDetails.loginAuth?.data?.id;
   const handleImageChange = async (event) => {
 
     const data1 = new FormData();
