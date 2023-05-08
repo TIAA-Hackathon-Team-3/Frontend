@@ -52,10 +52,10 @@ const TabInfo = () => {
   }
   const handleOnClick = async () => {
     try {
-      const createPost = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/createPost/${loginAuth.id}`,
+      const createPost = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/createPost/${loginAuthdata.id}`,
         data, {
         headers: {
-          'x-access-token': `${loginAuth.token}`
+          'x-access-token': `${loginAuthdata.token}`
         }
       })
       if (createPost.data.success) {
