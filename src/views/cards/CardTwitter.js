@@ -56,7 +56,14 @@ const CardTwitter = () => {
 
   const handleToggleDarkMode = () => {
     setDarkMode(!darkMode);
+  }
+  const [taggedUsers, setTaggedUsers] = useState([]);
+
+  const handleTagUser = (user) => {
+    setTaggedUsers([...taggedUsers, user]);
   };
+
+  
 
   return (
     <Card sx={{ border: 0, boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.25)', color: '', backgroundColor: 'inherit' }}>
@@ -147,6 +154,7 @@ const CardTwitter = () => {
             </Box>
           ) : null
         }
+        
       </CardContent>
     </Card>
   )
