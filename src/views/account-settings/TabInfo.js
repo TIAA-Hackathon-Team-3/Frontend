@@ -23,7 +23,7 @@ const TabInfo = () => {
     title: "",
     discription: "",
     image: "",
-    category: "health"
+    category: "Education"
   })
   const { loginAuth } = useSelector(state => state.auth);
   const router = useRouter()
