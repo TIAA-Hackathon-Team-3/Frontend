@@ -39,6 +39,16 @@ const navigation = () => {
       icon: Category,
       path: '/category/category'
     },
+    {
+      title: 'Admin',
+      icon: AccountCogOutline,
+      path: '/Admin/StatisticsCard'
+    },
+    {
+      title: 'Demo',
+      icon: AccountCogOutline,
+      path: '/Admin/HomePage'
+    }
   ]
 }
 
