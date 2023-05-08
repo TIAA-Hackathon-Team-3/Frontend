@@ -47,12 +47,12 @@ const Navigation = () => {
     {
       title: 'Spaces',
       icon: GroupRounded,
-      path: '/spaces/spaces'
+      path: '/Spaces/Spaces'
     },
     {
       title: 'Categories',
       icon: Category,
-      path: '/category/category'
+      path: '/Category/Category'
     },
   ];
 }
