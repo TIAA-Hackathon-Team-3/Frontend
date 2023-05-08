@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Avatar from '@mui/material/Avatar';
@@ -9,19 +9,45 @@ import ShareVariant from 'mdi-material-ui/ShareVariant';
 import ChatOutline from 'mdi-material-ui/ChatOutline';
 import { ArrowDownwardOutlined, ArrowUpwardOutlined} from '@material-ui/icons';
 import CommentSection from './CommentSection';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from 'src/Redux/Actions/AuthActions';
 
 
 
 const LikeDislike = () => {
   const [counts, setCounts] = useState({ likeCount: 0, dislikeCount: 0 });
-
+  const userDetails = useSelector((state)=>state.auth);
+  const [postData,setPostData] = useState([]);
+  const dispatch = useDispatch();
   const handleLike = () => {
     setCounts({ ...counts, likeCount: counts.likeCount + 1 });
   };
 
+  
+  const token = userDetails?.loginAuth?.data?.token ?? '';
+  const getPostData = async()=>{
+    const result = await axios.get(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/getAllPosts`,
+      {
+        headers: {
+          'x-access-token': `${token}`
+        }
+      }
+    )
+    console.log(result.data.data[0])
+    setPostData(result.data.data[0]);
+  }
+
+
   const handleDislike = () => {
     setCounts({ ...counts, dislikeCount: counts.dislikeCount + 1 });
+    getPostData();
   };
+  
+  useEffect(() => {
+    getPostData()
+  }, [])
 
   return (
     <>
@@ -31,6 +57,7 @@ const LikeDislike = () => {
         </IconButton>
         <Typography variant='body2' sx={{ color: 'inherit' }}>
           {counts.likeCount}
+          {/* {postData['upVote']} */}
         </Typography>
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'center', mr: 3.5 }}>
@@ -64,7 +91,7 @@ const CardTwitter = () => {
         <Typography
           variant='h6'
           sx={{ display: 'flex', marginBottom: 2.75, alignItems: 'center', color: 'common.white' }} >
-        </Typography>
+            </Typography>
         <Box sx={{ pb: 2, mr: 2, display: 'flex', alignItems: 'center' }}>
           <Avatar alt='Mary Vaughn' src='/images/avatars/4.png' sx={{ width: 34, height: 34, marginRight: 2.75 }} />
           <Box sx={{ mr: 2, display: 'flex', alignItems: 'left', flexDirection: 'column' }}>

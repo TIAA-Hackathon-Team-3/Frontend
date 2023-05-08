@@ -21,6 +21,7 @@ import Button from '@mui/material/Button'
 // ** Icons Imports
 import Close from 'mdi-material-ui/Close'
 import axios from 'axios'
+import { useSelector } from 'react-redux'
 
 const ImgStyled = styled('img')(({ theme }) => ({
     width: 120,
@@ -62,6 +63,8 @@ const TabProfile = () => {
         profilePic: "",
         aboutMe: ""
     })
+    const userDetails = useSelector((state)=>state.auth);
+    const token = userDetails.loginAuth.data.token;
     useEffect(() => {
       getUserData()
     }, [])
@@ -92,7 +95,6 @@ const TabProfile = () => {
         })
 
     }
-    const token = "";
     const handleUpdateProfile = async () => {
 
         const updateProfile = await axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/userProfileUpdate/${userData.id}`, userData, {
