@@ -12,15 +12,28 @@ import axios from 'axios'
 
 import { Toaster, toast } from "react-hot-toast";
 import { useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 
 const CustomInput = forwardRef((props, ref) => {
   return <TextField inputRef={ref} label='Birth Date' fullWidth {...props} />
 })
 
 const TabInfo = () => {
-  const userDetails = useSelector((state)=>state.auth);
-  const token = userDetails.loginAuth?.data?.token;
-  const id = userDetails.loginAuth?.data?.id;
+  const [data, setData] = useState({
+    title: "",
+    discription: "",
+    image: "",
+    category: ""
+  })
+  const { loginAuth } = useSelector(state => state.auth);
+  const router = useRouter()
+  useEffect(() => {
+    if(loginAuth.data === undefined){
+      router.push('/pages/login')
+    }
+  }, [])
+
+
   const handleImageChange = async (event) => {
 
     const data1 = new FormData();
@@ -39,10 +52,10 @@ const TabInfo = () => {
   }
   const handleOnClick = async () => {
     try {
-      const createPost = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/createPost/${loginAuth.id}`,
+      const createPost = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/createPost/${loginAuth.data.id}`,
         data, {
         headers: {
-          'x-access-token': `${loginAuth.token}`
+          'x-access-token': `${loginAuth.data.token}`
         }
       })
       if (createPost.data.success) {

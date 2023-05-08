@@ -22,6 +22,7 @@ import Button from '@mui/material/Button'
 import Close from 'mdi-material-ui/Close'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 
 const ImgStyled = styled('img')(({ theme }) => ({
     width: 120,
@@ -63,21 +64,40 @@ const TabProfile = () => {
         profilePic: "",
         aboutMe: ""
     })
-    const userDetails = useSelector((state)=>state.auth);
-    const token = userDetails.loginAuth?.data?.token;
+    const {loginAuth} = useSelector((state) => state.auth);
     useEffect(() => {
+        if(loginAuth.data === undefined){
+            router.push('/pages/login')
+          }
       getUserData()
     }, [])
-
+    const router = useRouter()
+  
+    console.log("Akash",loginAuth?.data?.token)
     const getUserData = async()=>{
-        const res = await axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/getUserProfile/${userData.id}`, userData, {
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/getUserProfile/${loginAuth?.data?.id}`, {
             headers: {
-                'x-access-token': `${token}`
+                'authorization': `${loginAuth.data.token}`
             }
         })
         const userDetails = res.data.data;
-        setUserData({...userData ,userDetails})
+        setUserData({...userData ,
+        id:userDetails.id,
+        firstName: userDetails.firstName,
+        lastName: userDetails.lastName,
+        phoneNumber: userDetails.phoneNumber,
+        address: userData.address,
+        email: userDetails.email,
+        city: userData.city,
+        state: userDetails.state,
+        country: userDetails.country,
+        zipCode: userDetails.zipCode,
+        birthDate: userDetails.birthDate,
+        profilePic: userDetails.profilePic,
+        aboutMe: userDetails.aboutMe
+    })
     }
+    console.log(userData)
     
 
     const onChange = file => {
@@ -97,9 +117,9 @@ const TabProfile = () => {
     }
     const handleUpdateProfile = async () => {
 
-        const updateProfile = await axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/userProfileUpdate/${userData.id}`, userData, {
+        const updateProfile = await axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/userProfileUpdate/${loginAuth.data.id}`, userData, {
             headers: {
-                'x-access-token': `${token}`
+                'authorization': `${loginAuth.data.token}`
             }
         })
         console.log(updateProfile)
@@ -128,18 +148,18 @@ const TabProfile = () => {
                     </Grid>
 
                     <Grid item xs={12} sm={6}>
-                        <TextField fullWidth label='firstName' name='firstName' placeholder='FirstName' defaultValue={userData.firstName} onChange={handleChange} />
+                        <TextField fullWidth label='firstName' name='firstName'  value={userData.firstName} onChange={handleChange} />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <TextField fullWidth label='lastName' name='lastName' placeholder='LastName' defaultValue={userData.lastName} onChange={handleChange} />
+                        <TextField fullWidth label='lastName' name='lastName' value={userData.lastName} onChange={handleChange} />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
                             fullWidth
                             type='email'
                             name='email'
-                            label='Email'
-                            defaultValue={userData.email}
+                            // label='Email'
+                            value={userData.email}
                             disabled
                         />
                     </Grid>
@@ -147,8 +167,8 @@ const TabProfile = () => {
                         <TextField
                             fullWidth
                             name='phoneNumber'
-                            label='PhoneNumber'
-                            defaultValue={userData.phoneNumber}
+                            // label='PhoneNumber'
+                            value={userData.phoneNumber}
                             onChange={handleChange}
                         />
                     </Grid>
@@ -156,8 +176,8 @@ const TabProfile = () => {
                         <TextField
                             fullWidth
                             name='birthDate'
-                            label='Birth Date'
-                            defaultValue={userData.birthDate}
+                            // label='Birth Date'
+                            value={userData.birthDate}
                             onChange={handleChange}
                         />
                     </Grid>
@@ -165,8 +185,8 @@ const TabProfile = () => {
                         <TextField
                             fullWidth
                             name='aboutMe'
-                            label='Title'
-                            defaultValue={userData.aboutMe}
+                            // label='Title'
+                            value={userData.aboutMe}
                             onChange={handleChange}
                         />
                     </Grid>
@@ -178,45 +198,45 @@ const TabProfile = () => {
                     <Grid item xs={12} sm={6}>
                         <TextField
                             fullWidth
-                            label='Address'
+                            // label='Address'
                             name='address'
-                            defaultValue={userData.address}
+                            value={userData.address}
                             onChange={handleChange}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
                             fullWidth
-                            label='City'
+                            // label='City'
                             name='city'
-                            defaultValue={userData.city}
+                            value={userData.city}
                             onChange={handleChange}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
                             fullWidth
-                            label='State'
+                            // label='State'
                             name='state'
-                            defaultValue={userData.state}
+                            value={userData.state}
                             onChange={handleChange}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
                             fullWidth
-                            label='Country'
+                            // label='Country'
                             name='country'
-                            defaultValue={userData.country}
+                            value={userData.country}
                             onChange={handleChange}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
                             fullWidth
-                            label='Zip code'
+                            // label='Zip code'
                             name='zipCode'
-                            defaultValue={userData.zipCode}
+                            value={userData.zipCode}
                             onChange={handleChange}
                         />
                     </Grid>
