@@ -76,11 +76,11 @@ const CardTwitter = () => {
             </Typography>
           </Box>
         </Box>
-        <Box sx={{ pb: '1rem' }}>
-          <img src='/images/avatars/10.png' alt='Technology' style={{
+        <Box sx={{ pb: '2rem', paddingTop: '1rem'}}>
+          <img src='/images/cards/paper-boat.png' alt='Technology' style={{
             display: 'block',
             margin: '0 auto',
-            width: '650px',
+            width: '97%',
             height: '400px',
             boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
             borderRadius: '10px'
