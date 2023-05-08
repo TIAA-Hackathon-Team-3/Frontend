@@ -22,12 +22,29 @@ const Dashboard = () => {
         }
       }
     )
-    console.log(result.data.data)
     setPostData(result.data.data);
   }
   useEffect(() => {
     getPostData();
-    console.log(postData)
+  }, [])
+  const [questionData,setQuestionData] = useState([]);
+  
+  const getAllQuestion = async() =>{
+    const result = await axios.get(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/getAllQuestion`,
+      {
+        headers: {
+          'x-access-token': `${token}`
+        }
+      }
+    )
+    console.log(result.data.data)
+    setQuestionData(result.data.data)
+  }
+
+  useEffect(() => {
+    getAllQuestion();
+    console.log(questionData);
   }, [])
   return (
     <>
@@ -35,7 +52,14 @@ const Dashboard = () => {
       <Grid container spacing={6}>
         <Grid item xs={12} md={7}>
           <FormLayoutsSeparator/>
-          <Answer/>
+          {Array.isArray(questionData) && questionData.map(question=>(
+          <Answer 
+          key={question.authorId}
+          authorName={question.authorName}
+          question={question.question}
+          date={question.date}
+          />
+          ))}
           {Array.isArray(postData) && postData.map(post=>(
           <CardTwitter key={post._id} authorName={post.authorName} image={post.image} title={post.title} category={post.category} discription={post.discription} />
           ))}
