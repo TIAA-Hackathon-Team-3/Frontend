@@ -27,7 +27,7 @@ export default function Demo() {
         <DialogTitle>Put Your Answer</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            <b> Question :- </b> Here the actual question will appear, when our backend developers are ready with their API's
+            <b> Question :- </b> Here the actual question will appear, when our backend developers are ready with their API&aposs
           </DialogContentText>
           <TextField
             autoFocus
