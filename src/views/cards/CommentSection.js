@@ -156,7 +156,6 @@ const Comment = ({ name, avatar, comment }) => {
 const CommentSection = () => {
   const [comments, setComments] = useState([])
   const [newComment, setNewComment] = useState('')
-  const [tags, setTags] = useState([]);
 
   const handleCommentChange = (event) => {
     setNewComment(event.target.value)
