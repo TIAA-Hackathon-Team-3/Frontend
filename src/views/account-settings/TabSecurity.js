@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
@@ -12,6 +12,7 @@ import InputAdornment from '@mui/material/InputAdornment'
 import EyeOutline from 'mdi-material-ui/EyeOutline'
 import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
 import axios from 'axios'
+import { useSelector } from 'react-redux'
 
 const TabSecurity = () => {
   const [values, setValues] = useState({
@@ -22,6 +23,14 @@ const TabSecurity = () => {
     showCurrentPassword: false,
     showConfirmPassword: false
   })
+  const { loginAuth } = useSelector(state => state.auth);
+  const router = useRouter()
+  useEffect(() => {
+    if(loginAuth.data === undefined){
+      router.push('/pages/login')
+    }
+  }, [])
+  
 
   const handleCurrentPasswordChange = prop => event => {
     setValues({ ...values, [prop]: event.target.value })
@@ -58,16 +67,16 @@ const TabSecurity = () => {
   const handleMouseDownConfirmPassword = event => {
     event.preventDefault()
   }
-const userId="";
-const token="";
+  
+
   const handleChangePassword=async()=>{
-    const updatePassword = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/changePassword/${userId}`, {
+    const updatePassword = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/changePassword/${loginAuth.data.id}`, {
       currentPassword: values.currentPassword,
       newPassword: values.newPassword,
       confirmPassword: values.confirmPassword
     }, {
       headers: {
-          'x-access-token': `${token}`
+          'x-access-token': `${loginAuth.data.token}`
       }
   })
 console.log(updatePassword)

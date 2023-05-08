@@ -13,13 +13,14 @@ import Magnify from 'mdi-material-ui/Magnify'
 import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler'
 import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
 import NotificationDropdown from 'src/@core/layouts/components/shared-components/NotificationDropdown'
-import { markAssetError } from 'next/dist/client/route-loader'
-import { BlackMesa, Login, Margin } from 'mdi-material-ui'
+import { useSelector } from 'react-redux'
 
 const AppBarContent = props => {
   const { hidden, settings, saveSettings, toggleNavVisibility } = props
 
   const hiddenSm = useMediaQuery(theme => theme.breakpoints.down('sm'))
+  const { loginAuth } = useSelector(state => state.auth);
+  console.log("navbar",loginAuth)
 
   return (
     <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between'  }}>
@@ -58,9 +59,16 @@ const AppBarContent = props => {
         )}
         <ModeToggler settings={settings} saveSettings={saveSettings} />
         <NotificationDropdown />
-        <Button variant="" href="/pages/login/" sx={{margin:2}}> Login</Button>
+        {
+          loginAuth?.data?.token===undefined ? (<>
+          <Button variant="" href="/pages/login/" sx={{margin:2}}> Login</Button>
         <Button variant="contained" href="/pages/register/" sx={{margin:1}}> Register</Button>
-        {/* <UserDropdown/> */}
+          </>):(
+            <UserDropdown/>
+          ) 
+        }
+        
+        
       </Box>
     </Box>
   )
