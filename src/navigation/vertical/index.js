@@ -13,7 +13,7 @@ import edit from 'mdi-material-ui/AccountEdit'
 import {Category, GroupRounded } from '@material-ui/icons'
 import { useSelector } from 'react-redux'
 
-const navigation = () => {
+const Navigation = () => {
   const { loginAuth } = useSelector(state => state.auth);
   return loginAuth.data.Role==="USER" ? [
     {
@@ -56,4 +56,4 @@ const navigation = () => {
   ];
 }
 
-export default navigation
+export default Navigation
