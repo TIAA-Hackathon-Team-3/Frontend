@@ -15,7 +15,7 @@ import { useSelector } from 'react-redux'
 
 const Navigation = () => {
   const { loginAuth } = useSelector(state => state.auth);
-  return loginAuth.data.Role==="USER" ? [
+  return loginAuth?.data?.Role==="USER" ? [
     {
       title: 'Dashboard',
       icon: HomeOutline,
