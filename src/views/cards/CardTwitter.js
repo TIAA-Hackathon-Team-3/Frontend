@@ -73,8 +73,10 @@ const CardTwitter = () => {
   const [darkMode, setDarkMode] = useState(false)
 
   const handleToggleDarkMode = () => {
-    setDarkMode(!darkMode)
-  }
+    setDarkMode(!darkMode);
+  };
+
+  
 
   return (
     <Card sx={{ border: 0, boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.25)', color: '', backgroundColor: 'inherit' }}>
@@ -167,12 +169,16 @@ const CardTwitter = () => {
             </Box>
           </Box>
         </Box>
-        <Box></Box>
-        {isModalOpen ? (
-          <Box>
-            <CommentSection />
-          </Box>
-        ) : null}
+        <Box>
+
+        </Box>
+        {
+          isModalOpen ? (
+            <Box>
+              <CommentSection />
+            </Box>
+          ) : null
+        }
       </CardContent>
     </Card>
   )

@@ -5,7 +5,40 @@ import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 
+const Tag = ({ tag }) => {
+  return (
+    <Typography
+      variant='subtitle2'
+      component='span'
+      sx={{ color: 'primary.main', fontWeight: 'bold' }}
+    >
+      @{tag}{' '}
+    </Typography>
+  );
+};
+
+const Tags = ({ tags }) => {
+  return (
+    <>
+      {tags.map((tag, index) => (
+        <Tag key={index} tag={tag} />
+      ))}
+    </>
+  );
+};
+
 const Reply = ({ name, avatar, reply }) => {
+  const [tags] = useState([]);
+  const [replies] = useState([]);
+  {replies.map((reply, index) => (
+    <Reply
+      key={index}
+      name={reply.name}
+      avatar={reply.avatar}
+      reply={reply.reply}
+      tags={reply.tags}
+    />
+  ))}  
   return (
     <Box sx={{ display: 'flex', alignItems: 'flex-start', ml: 4, mb: 1 }}>
       <Avatar alt={name} src={avatar} sx={{ width: 24, height: 24, mr: 1.5 }} />
@@ -14,6 +47,7 @@ const Reply = ({ name, avatar, reply }) => {
           {name}
         </Typography>
         <Typography variant='body2' sx={{ mb: 1 }}>
+        <Tags tags={tags} />
           {reply}
         </Typography>
       </Box>
@@ -25,24 +59,34 @@ const Comment = ({ name, avatar, comment }) => {
   const [replies, setReplies] = useState([]);
   const [newReply, setNewReply] = useState('');
   const [showReplies, setShowReplies] = useState(false);
-
+  const [tags, setTags] = useState([]);
   const handleReplyChange = (event) => {
     setNewReply(event.target.value);
   };
 
   const handleReplySubmit = () => {
     if (newReply.trim() !== '') {
+      const pattern = /@(\w+)/g;
+      
+      const matches = newReply.match(pattern);
+      const taggedUsers = matches ? matches.map(match => match.substr(1)) : [];
       const newReplyObj = {
         name: 'Sid',
         avatar: '/images/avatars/1.png',
         reply: newReply.trim(),
+        tags: taggedUsers
       };
       if (replies.length < 2) {
         setReplies([...replies, newReplyObj]);
       }
       setNewReply('');
+      setTags([...tags, ...taggedUsers]);
     }
   };
+
+
+  
+
 
   const handleViewAllReplies = () => {
     setShowReplies(true);
