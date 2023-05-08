@@ -12,6 +12,7 @@ import axios from 'axios'
 
 import { Toaster, toast } from "react-hot-toast";
 import { useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 
 const CustomInput = forwardRef((props, ref) => {
   return <TextField inputRef={ref} label='Birth Date' fullWidth {...props} />
@@ -25,6 +26,12 @@ const TabInfo = () => {
     category: ""
   })
   const { loginAuth } = useSelector(state => state.auth);
+  const router = useRouter()
+  useEffect(() => {
+    if(loginAuth.data === undefined){
+      router.push('/pages/login')
+    }
+  }, [])
 
 
   const handleImageChange = async (event) => {
