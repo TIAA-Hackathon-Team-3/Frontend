@@ -60,7 +60,7 @@ const AppBarContent = props => {
         <ModeToggler settings={settings} saveSettings={saveSettings} />
         <NotificationDropdown />
         {
-          loginAuth?.data.token===undefined ? (<>
+          loginAuth?.data?.token===undefined ? (<>
           <Button variant="" href="/pages/login/" sx={{margin:2}}> Login</Button>
         <Button variant="contained" href="/pages/register/" sx={{margin:1}}> Register</Button>
           </>):(
