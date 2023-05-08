@@ -6,71 +6,38 @@ import Card from '@mui/material/Card'
 import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
-import MenuItem from '@mui/material/MenuItem'
-import TextField from '@mui/material/TextField'
 import CardHeader from '@mui/material/CardHeader'
-import InputLabel from '@mui/material/InputLabel'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
-import CardActions from '@mui/material/CardActions'
-import FormControl from '@mui/material/FormControl'
-import OutlinedInput from '@mui/material/OutlinedInput'
-import InputAdornment from '@mui/material/InputAdornment'
-import Select from '@mui/material/Select'
+import axios from 'axios'
+import { useSelector } from 'react-redux'
+import { TextField } from '@mui/material'
+import { Toaster, toast } from "react-hot-toast";
 
-// ** Third Party Imports
-import DatePicker from 'react-datepicker'
-
-// ** Icons Imports
-import EyeOutline from 'mdi-material-ui/EyeOutline'
-import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
-
-const CustomInput = forwardRef((props, ref) => {
-  return <TextField fullWidth {...props} inputRef={ref} label='Birth Date' autoComplete='off' />
-})
 
 const FormLayoutsSeparator = () => {
   // ** States
-  const [language, setLanguage] = useState([])
-  const [date, setDate] = useState(null)
-
-  const [values, setValues] = useState({
-    password: '',
-    password2: '',
-    showPassword: false,
-    showPassword2: false
-  })
-
-  // Handle Password
-  const handlePasswordChange = prop => event => {
-    setValues({ ...values, [prop]: event.target.value })
-  }
-
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword })
-  }
-
-  const handleMouseDownPassword = event => {
-    event.preventDefault()
-  }
-
-  // Handle Confirm Password
-  const handleConfirmChange = prop => event => {
-    setValues({ ...values, [prop]: event.target.value })
-  }
-
-  const handleClickShowConfirmPassword = () => {
-    setValues({ ...values, showPassword2: !values.showPassword2 })
-  }
-
-  const handleMouseDownConfirmPassword = event => {
-    event.preventDefault()
-  }
-
-  // Handle Select
-  const handleSelectChange = event => {
-    setLanguage(event.target.value)
+  const [question, setQuestion] = useState("")
+  const { loginAuth } = useSelector(state => state.auth);
+  console.log(loginAuth)
+  const handleQuestion=async() => {
+    try {
+      if(question.length === 0) {
+        toast.error("please add question", { duration: 5000 });
+      }
+      const createPost = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/createQuestion/${loginAuth.data.id}`,
+        {question}, {
+        headers: {
+          'x-access-token': `${loginAuth.data.token}`
+        }
+      })
+      setQuestion("")
+      if (createPost.data.success) {
+        toast.success(createPost.data.message, { duration: 5000 });
+      }
+    } catch (error) {
+      console.log(error)
+      toast.error(error?.response?.message, { duration: 5000 });
+    }
   }
 
   return (
@@ -81,11 +48,12 @@ const FormLayoutsSeparator = () => {
         <CardContent>
           <Grid container spacing={12}>
             <Grid item xs={12}>
-              <TextField fullWidth label='Question' placeholder='What do you want to ask or share?' />
+              <TextField fullWidth label='Question' placeholder='What do you want to ask or share?' onChange={(e)=>setQuestion(e.target.value)} />
                 <Button 
                     type='submit' 
                     variant='contained' 
                     style={{ marginTop: '20px' }}
+                    onClick={handleQuestion}
                     >
                     Ask Question
                 </Button>
@@ -97,6 +65,10 @@ const FormLayoutsSeparator = () => {
            </Grid>
         </CardContent>
       </form>
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+      />
     </Card>
   )
 }
