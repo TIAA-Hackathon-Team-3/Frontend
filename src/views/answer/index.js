@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid'
 import Divider from '@mui/material/Divider'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
-import Demo from 'src/Pages/Demo/Demo'
+import Demo from 'src/Pages/Demo/Index'
 
 const Answer = () => {
   return (
