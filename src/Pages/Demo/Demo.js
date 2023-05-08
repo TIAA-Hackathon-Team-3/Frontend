@@ -7,13 +7,14 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function Demo() {
+export default function Demo(props) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
+  const {question} =props;
   const handleClose = () => {
     setOpen(false);
   };
@@ -27,7 +28,7 @@ export default function Demo() {
         <DialogTitle>Put Your Answer</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            <b> Question :- </b> Here the actual question will appear, when our backend developers are ready with their APIs
+            <b> Question :- </b> {question}
           </DialogContentText>
           <TextField
             autoFocus
