@@ -11,9 +11,11 @@ import AlertCircleOutline from 'mdi-material-ui/AlertCircleOutline'
 import GoogleCirclesExtended from 'mdi-material-ui/GoogleCirclesExtended'
 import edit from 'mdi-material-ui/AccountEdit'
 import {Category, GroupRounded } from '@material-ui/icons'
+import { useSelector } from 'react-redux'
 
 const navigation = () => {
-  return [
+  const { loginAuth } = useSelector(state => state.auth);
+  return loginAuth.data.Role==="USER" ? [
     {
       title: 'Dashboard',
       icon: HomeOutline,
@@ -39,6 +41,8 @@ const navigation = () => {
       icon: Category,
       path: '/category/category'
     },
+    
+  ] : [
     {
       title: 'Admin',
       icon: AccountCogOutline,
@@ -49,7 +53,7 @@ const navigation = () => {
       icon: AccountCogOutline,
       path: '/Admin/HomePage'
     }
-  ]
+  ];
 }
 
 export default navigation
