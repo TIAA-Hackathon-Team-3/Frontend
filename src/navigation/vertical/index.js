@@ -15,7 +15,20 @@ import { useSelector } from 'react-redux'
 
 const Navigation = () => {
   const { loginAuth } = useSelector(state => state.auth);
-  return loginAuth.data.Role==="USER" ? [
+  return loginAuth?.data?.Role==="ADMIN" ? [
+    {
+      title: 'Admin',
+      icon: AccountCogOutline,
+      path: '/Admin/StatisticsCard'
+    },
+    {
+      title: 'Demo',
+      icon: AccountCogOutline,
+      path: '/Admin/HomePage'
+    }
+    
+  ] : [
+    
     {
       title: 'Dashboard',
       icon: HomeOutline,
@@ -41,18 +54,6 @@ const Navigation = () => {
       icon: Category,
       path: '/category/category'
     },
-    
-  ] : [
-    {
-      title: 'Admin',
-      icon: AccountCogOutline,
-      path: '/Admin/StatisticsCard'
-    },
-    {
-      title: 'Demo',
-      icon: AccountCogOutline,
-      path: '/Admin/HomePage'
-    }
   ];
 }
 
