@@ -18,14 +18,6 @@ const CustomInput = forwardRef((props, ref) => {
 })
 
 const TabInfo = () => {
-  const [data, setData] = useState({
-    title: "",
-    discription: "",
-    image: "",
-    category: ""
-  })
-  const { loginAuth } = useSelector(state => state.auth);
-
   const userDetails = useSelector((state)=>state.auth);
   const token = userDetails.loginAuth?.data?.token;
   const id = userDetails.loginAuth?.data?.id;
