@@ -1,6 +1,5 @@
 // ** MUI Imports
 import Box from '@mui/material/Box'
-import Link from '@mui/material/Link'
 import TextField from '@mui/material/TextField'
 import IconButton from '@mui/material/IconButton'
 import Button from '@mui/material/Button'
@@ -11,10 +10,6 @@ import Menu from 'mdi-material-ui/Menu'
 import Magnify from 'mdi-material-ui/Magnify'
 
 import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler'
-import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
-import NotificationDropdown from 'src/@core/layouts/components/shared-components/NotificationDropdown'
-import { markAssetError } from 'next/dist/client/route-loader'
-import { BlackMesa, Login, Margin } from 'mdi-material-ui'
 
 const AppBarContent = props => {
   const { hidden, settings, saveSettings, toggleNavVisibility } = props
@@ -57,10 +52,7 @@ const AppBarContent = props => {
           </Box>
         )}
         <ModeToggler settings={settings} saveSettings={saveSettings} />
-        <NotificationDropdown />
-        <Button variant="" href="/pages/login/" sx={{margin:2}}> Login</Button>
-        <Button variant="contained" href="/pages/register/" sx={{margin:1}}> Register</Button>
-        {/* <UserDropdown/> */}
+        <Button variant="contained" href="/pages/register/" sx={{marginLeft:4}} > Logout</Button>
       </Box>
     </Box>
   )

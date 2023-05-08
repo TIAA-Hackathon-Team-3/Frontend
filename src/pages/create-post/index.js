@@ -6,11 +6,8 @@ import Card from '@mui/material/Card'
 import TabContext from '@mui/lab/TabContext'
 import { styled } from '@mui/material/styles'
 import MuiTab from '@mui/material/Tab'
-
-import TabInfo from 'src/views/account-settings/TabInfo'
-
+import Post_table from 'src/views/dashboard/Post_table'
 import 'react-datepicker/dist/react-datepicker.css'
-import { blue, red } from '@mui/material/colors'
 
 const Tab = styled(MuiTab)(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
@@ -40,9 +37,9 @@ const AccountSettings = () => {
 
   return (
     <>
-    <h1>Create Post</h1>
+    <h1>Edit Posts</h1>
       <Card>
-        <TabInfo />
+        <Post_table />
       </Card>
     </>
   )

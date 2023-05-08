@@ -130,18 +130,6 @@ const NotificationDropdown = () => {
         <ScrollWrapper>
           <MenuItem onClick={handleDropdownClose}>
             <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-              <Avatar alt='Flora' src='/images/avatars/4.png' />
-              <Box sx={{ mx: 4, flex: '1 1', display: 'flex', overflow: 'hidden', flexDirection: 'column' }}>
-                <MenuItemTitle>Congratulation Flora! 🎉</MenuItemTitle>
-                <MenuItemSubtitle variant='body2'>Won the monthly best seller badge</MenuItemSubtitle>
-              </Box>
-              <Typography variant='caption' sx={{ color: 'text.disabled' }}>
-                Today
-              </Typography>
-            </Box>
-          </MenuItem>
-          <MenuItem onClick={handleDropdownClose}>
-            <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
               <Avatar sx={{ color: 'common.white', backgroundColor: 'primary.main' }}>VU</Avatar>
               <Box sx={{ mx: 4, flex: '1 1', display: 'flex', overflow: 'hidden', flexDirection: 'column' }}>
                 <MenuItemTitle>New user registered.</MenuItemTitle>
