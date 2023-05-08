@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 
-const category = () => {
+const Category = () => {
     const { loginAuth } = useSelector(state => state.auth);
   const router = useRouter()
   useEffect(() => {
@@ -37,6 +37,6 @@ const category = () => {
     )
   }
   
-  export default category
+  export default Category
 
 
