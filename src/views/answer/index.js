@@ -1,7 +1,6 @@
 // ** React Imports
 import { forwardRef, useState } from 'react'
 
-// ** MUI Imports
 import Card from '@mui/material/Card'
 import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
@@ -10,7 +9,7 @@ import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import {GroupAddRounded } from '@material-ui/icons'
 
-const answer = () => {
+const Answer = () => {
   return (
     <Card style={{marginBottom: '25px'}}>
       <CardHeader title='Question from {...user}' titleTypographyProps={{ variant: 'h6' }} />
@@ -39,4 +38,4 @@ const answer = () => {
   )
 }
 
-export default answer
+export default Answer
