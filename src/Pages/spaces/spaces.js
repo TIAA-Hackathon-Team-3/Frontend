@@ -7,7 +7,7 @@ import CardAppleWatch from 'src/views/cards/CardAppleWatch';
 import CardFacebook from 'src/views/cards/CardFacebook';
 import CardImgTop from 'src/views/cards/CardImgTop';
 
-const spaces = () => {
+const Spaces = () => {
     const { loginAuth } = useSelector(state => state.auth);
   const router = useRouter()
   useEffect(() => {
@@ -36,4 +36,4 @@ const spaces = () => {
     )
   }
   
-  export default spaces
+  export default Spaces

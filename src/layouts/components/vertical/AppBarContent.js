@@ -13,8 +13,6 @@ import Magnify from 'mdi-material-ui/Magnify'
 import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler'
 import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
 import NotificationDropdown from 'src/@core/layouts/components/shared-components/NotificationDropdown'
-import { markAssetError } from 'next/dist/client/route-loader'
-import { BlackMesa, Login, Margin } from 'mdi-material-ui'
 import { useSelector } from 'react-redux'
 
 const AppBarContent = props => {
