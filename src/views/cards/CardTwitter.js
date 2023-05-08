@@ -24,30 +24,13 @@ const LikeDislike = () => {
     setCounts({ ...counts, likeCount: counts.likeCount + 1 });
   };
 
-  
   const token = userDetails?.loginAuth?.data?.token ?? '';
-  const getPostData = async()=>{
-    const result = await axios.get(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/getAllPosts`,
-      {
-        headers: {
-          'x-access-token': `${token}`
-        }
-      }
-    )
-    console.log(result.data.data[0])
-    setPostData(result.data.data[0]);
-  }
-
 
   const handleDislike = () => {
     setCounts({ ...counts, dislikeCount: counts.dislikeCount + 1 });
-    getPostData();
+
   };
   
-  useEffect(() => {
-    getPostData()
-  }, [])
 
   return (
     <>
@@ -74,13 +57,13 @@ const LikeDislike = () => {
 
 
 
-const CardTwitter = () => {
+const CardTwitter = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleOpenModal = () => {
     setIsModalOpen(!isModalOpen)
   }
+  const { authorName, category , image, title, discription } = props;
   const [darkMode, setDarkMode] = useState(false);
-
   const handleToggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
@@ -96,15 +79,15 @@ const CardTwitter = () => {
           <Avatar alt='Mary Vaughn' src='/images/avatars/4.png' sx={{ width: 34, height: 34, marginRight: 2.75 }} />
           <Box sx={{ mr: 2, display: 'flex', alignItems: 'left', flexDirection: 'column' }}>
             <Typography variant='body2' sx={{ color: 'inherit', fontWeight: 'bold' }}>
-              Aarya
+              {authorName}
             </Typography>
             <Typography variant='body2' sx={{ color: 'inherit', fontWeight: 'bold' }} >
-              Content Developer
+              {title}
             </Typography>
           </Box>
         </Box>
         <Box sx={{ pb: '2rem', paddingTop: '1rem'}}>
-          <img src='/images/cards/paper-boat.png' alt='Technology' style={{
+          <img src={image} alt={category} style={{
             display: 'block',
             margin: '0 auto',
             width: '97%',
@@ -116,10 +99,11 @@ const CardTwitter = () => {
         </Box>
         <Box>
           <Typography variant='h5' sx={{ fontWeight: 'bold', marginBottom: 3, color: 'inherit' }}>
-            Technology is Great
+          {category}
           </Typography>
           <Typography variant='body2' sx={{ marginBottom: 3, textAlign: 'justify', color: 'inherit' }}>
-            Technology has greatly transformed and improved our lives in many ways. It has revolutionized how we communicate, work, learn, entertain, and even how we think. With the help of technology, we can access information and connect with people from all over the world instantly. It has also enabled us to solve complex problems, automate processes, and create new opportunities for growth and development. However, it is important to use technology responsibly and ethically, and to ensure that its benefits are accessible to everyone.
+          {discription}
+            {/* Technology has greatly transformed and improved our lives in many ways. It has revolutionized how we communicate, work, learn, entertain, and even how we think. With the help of technology, we can access information and connect with people from all over the world instantly. It has also enabled us to solve complex problems, automate processes, and create new opportunities for growth and development. However, it is important to use technology responsibly and ethically, and to ensure that its benefits are accessible to everyone. */}
           </Typography>
         </Box>
 
