@@ -2,9 +2,7 @@
 import { Children } from 'react'
 
 // ** Next Import
-import { Html, Head, Main, NextScript } from 'next/head'
-
-import Document from 'next/head';
+import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 // ** Emotion Imports
 import createEmotionServer from '@emotion/server/create-instance'
